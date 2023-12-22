@@ -24,20 +24,20 @@ public class SheltersController {
     }
 
     // GET all shelters
-    @GetMapping
+    @GetMapping("/get_all_shelters")
     public List<SheltersDTO> getAllShelters() {
         return sheltersService.findAllShelters().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     // GET a single shelter by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<SheltersDTO> getShelterById(@PathVariable Integer id) {
+    @GetMapping("/get_shelter_byID")
+    public ResponseEntity<SheltersDTO> getShelterById(@RequestParam Integer id) {
         Shelters shelter = sheltersService.findShelterById(id);
         return shelter != null ? ResponseEntity.ok(convertToDTO(shelter)) : ResponseEntity.notFound().build();
     }
 
     // POST - Create a new shelter
-    @PostMapping
+    @PostMapping("/create_shelter")
     public SheltersDTO createShelter(@RequestBody SheltersDTO shelterDTO) {
         Shelters newShelter = new Shelters(shelterDTO.getName(), shelterDTO.getLocation(), shelterDTO.getEmailAddress(), shelterDTO.getPhoneNumber());
         Shelters savedShelter = sheltersService.saveShelter(newShelter);
@@ -45,8 +45,8 @@ public class SheltersController {
     }
 
     // PUT - Update an existing shelter
-    @PutMapping("/{id}")
-    public ResponseEntity<SheltersDTO> updateShelter(@PathVariable Integer id, @RequestBody SheltersDTO shelterDTO) {
+    @PutMapping("/update_shelter")
+    public ResponseEntity<SheltersDTO> updateShelter(@RequestParam Integer id, @RequestBody SheltersDTO shelterDTO) {
         Shelters existingShelter = sheltersService.findShelterById(id);
         if (existingShelter != null) {
             existingShelter.setName(shelterDTO.getName());
@@ -60,8 +60,8 @@ public class SheltersController {
     }
 
     // DELETE - Remove a shelter
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteShelter(@PathVariable Integer id) {
+    @DeleteMapping("/delete_shelter")
+    public ResponseEntity<?> deleteShelter(@RequestParam Integer id) {
         Shelters shelter = sheltersService.findShelterById(id);
         if (shelter != null) {
             sheltersService.deleteShelter(id);

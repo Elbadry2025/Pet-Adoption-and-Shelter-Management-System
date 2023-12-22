@@ -42,7 +42,7 @@ public class AdoptionsController {
 
 
     // GET all adoptions
-    @GetMapping
+    @GetMapping("/get_all_adoptions")
     public List<AdoptionsDTO> getAllAdoptions() {
         return adoptionsService.findAllAdoptions().stream()
                 .map(this::convertToDTO)
@@ -50,14 +50,14 @@ public class AdoptionsController {
     }
 
     // GET a single adoption by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<AdoptionsDTO> getAdoptionById(@PathVariable Integer id) {
+    @GetMapping("/get_adoption_byID")
+    public ResponseEntity<AdoptionsDTO> getAdoptionById(@RequestParam Integer id) {
         Optional<Adoptions> adoption = Optional.ofNullable(adoptionsService.findAdoptionById(id));
         return adoption.map(adoptions -> ResponseEntity.ok(convertToDTO(adoptions))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST - Create a new adoption
-    @PostMapping
+    @PostMapping("/create_adoption")
     public ResponseEntity<AdoptionsDTO> createAdoption(@RequestBody AdoptionsDTO adoptionsDTO) {
         // Convert DTO to Entity
         Adoptions newAdoption = new Adoptions();
@@ -78,8 +78,8 @@ public class AdoptionsController {
 
 
     // PUT - Update an existing adoption
-    @PutMapping("/{id}")
-    public ResponseEntity<AdoptionsDTO> updateAdoption(@PathVariable Integer id, @RequestBody AdoptionsDTO adoptionsDTO) {
+    @PutMapping("/update_adoption")
+    public ResponseEntity<AdoptionsDTO> updateAdoption(@RequestParam Integer id, @RequestBody AdoptionsDTO adoptionsDTO) {
         Optional<Adoptions> existingAdoption = Optional.ofNullable(adoptionsService.findAdoptionById(id));
         if (existingAdoption.isPresent()) {
             Adoptions adoption = existingAdoption.get();
@@ -91,8 +91,8 @@ public class AdoptionsController {
     }
 
     // DELETE - Remove an adoption
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAdoption(@PathVariable Integer id) {
+    @DeleteMapping("/delete_adoption")
+    public ResponseEntity<?> deleteAdoption(@RequestParam Integer id) {
         Optional<Adoptions> adoption = Optional.ofNullable(adoptionsService.findAdoptionById(id));
         if (adoption.isPresent()) {
             adoptionsService.deleteAdoption(id);

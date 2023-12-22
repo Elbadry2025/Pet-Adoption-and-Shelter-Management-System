@@ -25,7 +25,7 @@ public class DocumentsController {
     }
 
     // GET all documents
-    @GetMapping
+    @GetMapping("/get_all_documents")
     public List<DocumentsDTO> getAllDocuments() {
         return documentsService.findAllDocuments().stream()
                 .map(this::convertToDTO)
@@ -33,15 +33,15 @@ public class DocumentsController {
     }
 
     // GET a single document by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<DocumentsDTO> getDocumentById(@PathVariable Integer id) {
+    @GetMapping("/get_document_byID")
+    public ResponseEntity<DocumentsDTO> getDocumentById(@RequestParam Integer id) {
         Optional<Documents> document = Optional.ofNullable(documentsService.findDocumentById(id));
         return document.map(doc -> ResponseEntity.ok(convertToDTO(doc)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST - Create a new document
-    @PostMapping
+    @PostMapping("/create_document")
     public ResponseEntity<DocumentsDTO> createDocument(@RequestBody DocumentsDTO documentsDTO) {
         Documents newDocument = new Documents(/* Construct a new Documents entity from documentsDTO */);
         Documents savedDocument = documentsService.saveDocument(newDocument);
@@ -49,8 +49,8 @@ public class DocumentsController {
     }
 
     // PUT - Update an existing document
-    @PutMapping("/{id}")
-    public ResponseEntity<DocumentsDTO> updateDocument(@PathVariable Integer id, @RequestBody DocumentsDTO documentsDTO) {
+    @PutMapping("/update_document")
+    public ResponseEntity<DocumentsDTO> updateDocument(@RequestParam Integer id, @RequestBody DocumentsDTO documentsDTO) {
         Optional<Documents> existingDocument = Optional.ofNullable(documentsService.findDocumentById(id));
         if (existingDocument.isPresent()) {
             Documents document = existingDocument.get();
@@ -62,8 +62,8 @@ public class DocumentsController {
     }
 
     // DELETE - Remove a document
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDocument(@PathVariable Integer id) {
+    @DeleteMapping("/delete_document")
+    public ResponseEntity<?> deleteDocument(@RequestParam Integer id) {
         Optional<Documents> document = Optional.ofNullable(documentsService.findDocumentById(id));
         if (document.isPresent()) {
             documentsService.deleteDocument(id);

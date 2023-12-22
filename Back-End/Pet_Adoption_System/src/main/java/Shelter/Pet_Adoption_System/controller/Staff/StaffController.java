@@ -35,7 +35,7 @@ public class StaffController {
     }
 
     // GET all staff members
-    @GetMapping
+    @GetMapping("/get_all_staff")
     public List<StaffDTO> getAllStaff() {
         return staffService.findAllStaff().stream()
                 .map(this::convertToDTO)
@@ -43,15 +43,15 @@ public class StaffController {
     }
 
     // GET a single staff member by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<StaffDTO> getStaffById(@PathVariable Integer id) {
+    @GetMapping("/get_staff_byID")
+    public ResponseEntity<StaffDTO> getStaffById(@RequestParam Integer id) {
         Optional<Staff> staff = Optional.ofNullable(staffService.findStaffById(id));
         return staff.map(s -> ResponseEntity.ok(convertToDTO(s)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST - Create a new staff member
-    @PostMapping
+    @PostMapping("/create_staff_member")
     public ResponseEntity<StaffDTO> createStaff(@RequestBody StaffDTO staffDTO) {
         Staff newStaff = new Staff();
         newStaff.setName(staffDTO.getName());
@@ -64,8 +64,8 @@ public class StaffController {
     }
 
     // PUT - Update an existing staff member
-    @PutMapping("/{id}")
-    public ResponseEntity<StaffDTO> updateStaff(@PathVariable Integer id, @RequestBody StaffDTO staffDTO) {
+    @PutMapping("/update_staff_member")
+    public ResponseEntity<StaffDTO> updateStaff(@RequestParam Integer id, @RequestBody StaffDTO staffDTO) {
         Optional<Staff> existingStaff = Optional.ofNullable(staffService.findStaffById(id));
         if (existingStaff.isPresent()) {
             Staff staff = existingStaff.get();
@@ -81,8 +81,8 @@ public class StaffController {
     }
 
     // DELETE - Remove a staff member
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStaff(@PathVariable Integer id) {
+    @DeleteMapping("/delete_staff_member")
+    public ResponseEntity<?> deleteStaff(@RequestParam Integer id) {
         if (staffService.findStaffById(id)!=null) {
             staffService.deleteStaff(id);
             return ResponseEntity.ok().build();

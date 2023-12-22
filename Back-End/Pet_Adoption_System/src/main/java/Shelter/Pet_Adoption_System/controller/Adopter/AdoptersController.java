@@ -25,14 +25,14 @@ public class AdoptersController {
     }
 
     // GET all adopters
-    @GetMapping
+    @GetMapping("/get_all_adopters")
     public List<AdoptersDTO> getAllAdopters() {
         return adoptersService.findAllAdopters().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     // GET adopter by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<AdoptersDTO> getAdopterById(@PathVariable Integer id) {
+    @GetMapping("/get_adopter_byID")
+    public ResponseEntity<AdoptersDTO> getAdopterById(@RequestParam Integer id) {
         Optional<Adopters> adopterOptional = adoptersService.findAdopterById(id);
 
         return adopterOptional.map(adopter -> ResponseEntity.ok(convertToDTO(adopter)))
@@ -41,15 +41,15 @@ public class AdoptersController {
 
 
     // POST a new adopter
-    @PostMapping
+    @PostMapping("/create_adopter")
     public AdoptersDTO addAdopter(@RequestBody AdoptersDTO adopterDTO) {
         Adopters newAdopter = new Adopters(adopterDTO.getName(), adopterDTO.getEmailAddress(), adopterDTO.getPhoneNumber(), "hashed_password");
         return convertToDTO(adoptersService.saveAdopter(newAdopter));
     }
 
     // PUT to update an adopter
-    @PutMapping("/{id}")
-    public ResponseEntity<AdoptersDTO> updateAdopter(@PathVariable Integer id, @RequestBody AdoptersDTO adopterDTO) {
+    @PutMapping("/update_adopter")
+    public ResponseEntity<AdoptersDTO> updateAdopter(@RequestParam Integer id, @RequestBody AdoptersDTO adopterDTO) {
         Optional<Adopters> adopterOptional = adoptersService.findAdopterById(id);
 
         if (adopterOptional.isPresent()) {
@@ -66,8 +66,8 @@ public class AdoptersController {
 
 
     // DELETE an adopter
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAdopter(@PathVariable Integer id) {
+    @DeleteMapping("/delete_adopter")
+    public ResponseEntity<?> deleteAdopter(@RequestParam Integer id) {
         adoptersService.deleteAdopter(id);
         return ResponseEntity.ok().build();
     }

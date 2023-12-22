@@ -41,7 +41,7 @@ public class PetsController {
     }
 
     // GET all pets
-    @GetMapping
+    @GetMapping("/get_all_pets")
     public List<PetsDTO> getAllPets() {
         return petsService.findAllPets().stream()
                 .map(this::convertToDTO)
@@ -49,15 +49,15 @@ public class PetsController {
     }
 
     // GET a single pet by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<PetsDTO> getPetById(@PathVariable Integer id) {
+    @GetMapping("/get_pet_byID")
+    public ResponseEntity<PetsDTO> getPetById(@RequestParam Integer id) {
         Optional<Pets> pet = Optional.ofNullable(petsService.findPetById(id));
         return pet.map(p -> ResponseEntity.ok(convertToDTO(p)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST - Create a new pet
-    @PostMapping
+    @PostMapping("/create_pet")
     public ResponseEntity<PetsDTO> createPet(@RequestBody PetsDTO petsDTO) {
         Pets newPet = new Pets();
         newPet.setName(petsDTO.getName());
@@ -87,8 +87,8 @@ public class PetsController {
 
 
     // PUT - Update an existing pet
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updatePet(@PathVariable Integer id, @RequestBody PetsDTO petsDTO) {
+    @PutMapping("/update_pet")
+    public ResponseEntity<?> updatePet(@RequestParam Integer id, @RequestBody PetsDTO petsDTO) {
         Pets existingPet = petsService.findPetById(id);
         if (existingPet != null) {
             // Updating fields with new values from petsDTO
@@ -123,8 +123,8 @@ public class PetsController {
 
 
     // DELETE - Remove a pet
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePet(@PathVariable Integer id) {
+    @DeleteMapping("/delete_pet")
+    public ResponseEntity<?> deletePet(@RequestParam Integer id) {
         if (petsService.findPetById(id) != null) {
             petsService.deletePet(id);
             return ResponseEntity.ok().build();

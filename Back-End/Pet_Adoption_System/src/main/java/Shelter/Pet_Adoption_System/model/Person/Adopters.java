@@ -3,8 +3,10 @@ package Shelter.Pet_Adoption_System.model.Person;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "adopters")
 public class Adopters extends Person {
