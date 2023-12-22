@@ -28,13 +28,12 @@ DROP TABLE IF EXISTS `petshelter`.`adopters` ;
 
 CREATE TABLE IF NOT EXISTS `petshelter`.`adopters` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(255) NULL DEFAULT NULL,
   `password_hash` VARCHAR(255) NULL DEFAULT NULL,
   `name` VARCHAR(255) NULL DEFAULT NULL,
   `email_address` VARCHAR(100) NULL DEFAULT NULL,
   `phone_number` VARCHAR(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `username` (`username` ASC) VISIBLE)
+  PRIMARY KEY (`user_id`)
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -140,6 +139,7 @@ CREATE TABLE IF NOT EXISTS `petshelter`.`staff` (
   `email_address` VARCHAR(100) NULL DEFAULT NULL,
   `phone_number` VARCHAR(20) NULL DEFAULT NULL,
   `shelter_id` INT NULL DEFAULT NULL,
+  `password_hash` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
   INDEX `shelter_id` (`shelter_id` ASC) VISIBLE,
   CONSTRAINT `staff_ibfk_1`
