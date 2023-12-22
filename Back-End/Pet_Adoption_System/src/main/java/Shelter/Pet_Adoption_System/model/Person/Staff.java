@@ -4,8 +4,10 @@ package Shelter.Pet_Adoption_System.model.Person;
 import Shelter.Pet_Adoption_System.model.Shelters.Shelters;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "staff")
 public class Staff extends Person {
@@ -32,6 +34,7 @@ public class Staff extends Person {
         this.role = role;
         this.shelter = shelter;
     }
+
 
 
 }
