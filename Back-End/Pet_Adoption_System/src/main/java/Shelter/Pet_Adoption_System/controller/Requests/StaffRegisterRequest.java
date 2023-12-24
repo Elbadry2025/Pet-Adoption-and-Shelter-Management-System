@@ -7,8 +7,11 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class StaffRegisterRequest extends RegisterRequest {
+public class StaffRegisterRequest {
+    private String name;
+    private String emailAddress;
+    private String passwordHash;
+    private String phoneNumber;
     private String role;
     private Shelters shelter;
 }

@@ -1,7 +1,8 @@
 package Shelter.Pet_Adoption_System.controller.Authentication;
 
+import Shelter.Pet_Adoption_System.controller.Requests.AdopterRegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Requests.LoginRequest;
-import Shelter.Pet_Adoption_System.controller.Requests.RegisterRequest;
+import Shelter.Pet_Adoption_System.controller.Requests.StaffRegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Responses.AuthenticationResponse;
 import Shelter.Pet_Adoption_System.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,18 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final AuthenticationService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+    @PostMapping("/staffRegister")
+    public ResponseEntity<AuthenticationResponse> staffRegister(
+            @RequestBody StaffRegisterRequest request
     ) {
-        AuthenticationResponse token = service.register(request);
-        if (token.getToken().equals("FORBIDDEN"))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(token);
-        else
-            return ResponseEntity.ok(token);
+        return ResponseEntity.ok(service.staffRegister(request));
+    }
+
+    @PostMapping("/adopterRegister")
+    public ResponseEntity<AuthenticationResponse> adopterRegister(
+            @RequestBody AdopterRegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.adopterRegister(request));
     }
 
     @PostMapping("/authenticate")

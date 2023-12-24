@@ -6,7 +6,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class AdopterRegisterRequest extends RegisterRequest {
-
+public class AdopterRegisterRequest {
+    private String name;
+    private String emailAddress;
+    private String passwordHash;
+    private String phoneNumber;
 }

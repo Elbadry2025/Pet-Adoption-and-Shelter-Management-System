@@ -3,7 +3,6 @@ package Shelter.Pet_Adoption_System.service;
 import Shelter.Pet_Adoption_System.Config.JwtService;
 import Shelter.Pet_Adoption_System.controller.Requests.AdopterRegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Requests.LoginRequest;
-import Shelter.Pet_Adoption_System.controller.Requests.RegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Requests.StaffRegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Responses.AuthenticationResponse;
 import Shelter.Pet_Adoption_System.model.Person.Adopters;
@@ -28,7 +27,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse staffRegister(StaffRegisterRequest request) {
         try {
             Optional<Adopters> adoptersCheck = adoptersRepository.findByEmailAddress(request.getEmailAddress());
             Optional<Staff> staffCheck = staffRepository.findByEmailAddress(request.getEmailAddress());
@@ -37,35 +36,43 @@ public class AuthenticationService {
                 return AuthenticationResponse.builder().token("Already Exist").build();
             } else if (adoptersCheck.isPresent()) {
                 return AuthenticationResponse.builder().token("Already Exist").build();
-            } else if (request instanceof AdopterRegisterRequest) {
-                Adopters adopter = new Adopters(request.getName(), request.getEmailAddress(),
-                        request.getPhoneNumber(), passwordEncoder.encode(request.getPasswordHash()));
-                adoptersRepository.save(adopter);
-                String token =  jwtService.generateToken(adopter);
-                return AuthenticationResponse.builder()
-                        .token(token)
-                        .build();
-            } else if (request instanceof StaffRegisterRequest){
-                Staff staff = new Staff(request.getName(), request.getEmailAddress(), request.getPhoneNumber(),
-                        passwordEncoder.encode(request.getPasswordHash()), ((StaffRegisterRequest) request).getRole(),
-                        ((StaffRegisterRequest) request).getShelter());
-                staffRepository.save(staff);
-                String token =  jwtService.generateToken(staff);
-                return AuthenticationResponse.builder()
-                        .token(token)
-                        .build();
-            } else {
-                return AuthenticationResponse.builder()
-                        .token("FORBIDDEN")
-                        .build();
             }
-
+            Staff staff = new Staff(request.getName(), request.getEmailAddress(), request.getPhoneNumber(),
+                    passwordEncoder.encode(request.getPasswordHash()), request.getRole(),
+                    request.getShelter());
+            staffRepository.save(staff);
+            String token =  jwtService.generateToken(staff);
+            return AuthenticationResponse.builder()
+                    .token(token)
+                    .build();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return AuthenticationResponse.builder().token(e.getMessage()).build();
         }
     }
 
+    public AuthenticationResponse adopterRegister(AdopterRegisterRequest request) {
+        try {
+            Optional<Adopters> adoptersCheck = adoptersRepository.findByEmailAddress(request.getEmailAddress());
+            Optional<Staff> staffCheck = staffRepository.findByEmailAddress(request.getEmailAddress());
+
+            if (staffCheck.isPresent()) {
+                return AuthenticationResponse.builder().token("Already Exist").build();
+            } else if (adoptersCheck.isPresent()) {
+                return AuthenticationResponse.builder().token("Already Exist").build();
+            }
+            Adopters adopter = new Adopters(request.getName(), request.getEmailAddress(),
+                    request.getPhoneNumber(), passwordEncoder.encode(request.getPasswordHash()));
+            adoptersRepository.save(adopter);
+            String token =  jwtService.generateToken(adopter);
+            return AuthenticationResponse.builder()
+                    .token(token)
+                    .build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return AuthenticationResponse.builder().token(e.getMessage()).build();
+        }
+    }
 
     public AuthenticationResponse login(LoginRequest request) throws NoSuchElementException {
         try {
