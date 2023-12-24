@@ -3,12 +3,14 @@ package Shelter.Pet_Adoption_System.model.Person;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "adopters")
+@EqualsAndHashCode(callSuper = true)
 public class Adopters extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
