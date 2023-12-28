@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a85c8d-43f6-49ba-9d48-44399928edc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Requests/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Person/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/AdopterLoginForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/components/AdopterLoginForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/AdopterLoginForm.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Login.jsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +42,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/AMTop-Ecommerce/BackEnd",
+    "git-widget-placeholder": "Security-And-Authentication",
+    "last_opened_file_path": "F:/My Projects/Pet-Adoption-and-Shelter-Management-System/Back-End",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0"
