@@ -1,0 +1,99 @@
+.requests-staff {
+    padding: 20px;
+  }
+  
+  .requests-staff table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .requests-staff th, .requests-staff td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .requests-staff th {
+    background-color: #f4f4f4;
+  }
+  
+  .requests-staff tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .requests-staff select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .requests-staff .submit-button {
+    position: relative; 
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5a97e8;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+    margin-left: 1050px;
+    margin-bottom: 40px;
+  }
+  
+  .smodal {
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+  }
+  
+  .smodal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 10% auto; 
+    padding: 20px;
+    width: 80%; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  .close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: rgb(110, 35, 35);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}

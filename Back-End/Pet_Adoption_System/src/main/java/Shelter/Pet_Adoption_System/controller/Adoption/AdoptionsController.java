@@ -7,6 +7,7 @@ import Shelter.Pet_Adoption_System.model.Adoptions.Adoptions;
 import Shelter.Pet_Adoption_System.service.AdoptersService;
 import Shelter.Pet_Adoption_System.service.AdoptionsService;
 import Shelter.Pet_Adoption_System.service.PetsService;
+import Shelter.Pet_Adoption_System.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,9 @@ public class AdoptionsController {
 
     @Autowired
     private AdoptersService adoptersService;
+
+    @Autowired
+    private StaffService staffService;
 
     // Convert to DTO
     private AdoptionsDTO convertToDTO(Adoptions adoption) {
@@ -54,6 +58,21 @@ public class AdoptionsController {
     public ResponseEntity<AdoptionsDTO> getAdoptionById(@RequestParam Integer id) {
         Optional<Adoptions> adoption = Optional.ofNullable(adoptionsService.findAdoptionById(id));
         return adoption.map(adoptions -> ResponseEntity.ok(convertToDTO(adoptions))).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/get_adoptions_by_shelterId")
+    public List<AdoptionsDTO> getAdoptionsByShelterId(@RequestParam Integer shelterId) {
+        return adoptionsService.getAdoptionsByShelterId(shelterId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/get_adoptions_by_staffId")
+    public List<AdoptionsDTO> getAdoptionsByStaffId(@RequestParam Integer staffId) {
+        return adoptionsService.getAdoptionsByShelterId(staffService.findStaffById(staffId).getShelter().getShelterId()).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+
     }
 
     // POST - Create a new adoption
@@ -84,6 +103,18 @@ public class AdoptionsController {
         if (existingAdoption.isPresent()) {
             Adoptions adoption = existingAdoption.get();
             // Update logic
+            Adoptions updatedAdoption = adoptionsService.saveAdoption(adoption);
+            return ResponseEntity.ok(convertToDTO(updatedAdoption));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/change_adoption_status")
+    public ResponseEntity<AdoptionsDTO> changeAdoptionStatus(@RequestParam Integer id, @RequestParam String status) {
+        Optional<Adoptions> existingAdoption = Optional.ofNullable(adoptionsService.findAdoptionById(id));
+        if (existingAdoption.isPresent()) {
+            Adoptions adoption = existingAdoption.get();
+            adoption.setStatus(status);
             Adoptions updatedAdoption = adoptionsService.saveAdoption(adoption);
             return ResponseEntity.ok(convertToDTO(updatedAdoption));
         }

@@ -1,9 +1,20 @@
 import React from 'react';
 
-const AdopterDetailsModal = ({ adopter, onClose }) => {
+interface Adopter {
+  name: string;
+  emailAddress: string;
+  phoneNumber: string;
+}
+
+interface AdopterDetailsModalProps {
+  adopter: Adopter;
+  onClose: () => void;
+}
+
+const AdopterDetailsModal: React.FC<AdopterDetailsModalProps> = ({ adopter, onClose }) => {
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="smodal">
+      <div className="smodal-content">
         <span className="close" onClick={onClose}>&times;</span>
         <h2>Adopter Details</h2>
         <p><strong>Name:</strong> {adopter.name}</p>
