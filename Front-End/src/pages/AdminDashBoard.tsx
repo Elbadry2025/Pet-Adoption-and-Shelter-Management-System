@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import { httpRequest } from '../HttpProxy'; // Assuming you have an HTTP utility for requests
 
@@ -35,6 +35,108 @@ const AdminSheltersPage: React.FC = () => {
     const [shelterStaffMembers, setShelterStaffMembers] = useState<StaffMember[]>([]);
 
     const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
+    //////////////////
+
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [sheltersPerPage] = useState<number>(10);
+    const indexOfLastShelter = currentPage * sheltersPerPage;
+    const indexOfFirstShelter = indexOfLastShelter - sheltersPerPage;
+    const currentShelters = shelters.slice(indexOfFirstShelter, indexOfLastShelter);
+    const totalShelterPages = Math.ceil(shelters.length / sheltersPerPage);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    ////////////
+
+
+    const [showAddStaffModal, setShowAddStaffModal] = useState<boolean>(false);
+    const [inputStaffId, setInputStaffId] = useState<number | null>(null);
+    const [selectedShelterId, setSelectedShelterId] = useState<number | null>(null);
+
+    const showAddStaffPopup = (shelterId: number) => {
+        setSelectedShelterId(shelterId);
+        setShowAddStaffModal(true);
+    };
+
+    const AddStaffPopup: React.FC = () => {
+        if (!showAddStaffModal) return null;
+        const inputRef = useRef<HTMLInputElement>(null); // Create a ref for the input element
+        const [inputStaffId, setInputStaffId] = useState<number | null>(null);
+        useEffect(() => {
+            // Focus on the input element when the modal renders
+            if (inputRef.current) {
+                inputRef.current.focus();
+            }
+        }, []);
+    
+    
+        const handleAddStaff = async () => {
+            if (inputStaffId && selectedShelterId) {
+                try {
+                    // Replace this URL with your actual endpoint
+                    const response = await httpRequest('put', `/api/staff/set_shelter?staffId=${inputStaffId}&shelterId=${selectedShelterId}`);
+                    if (response.status === 200) {
+                        alert('Staff member added successfully');
+                        // Reload staff members or shelters as needed
+                    } else {
+                        console.error('Failed to add staff member:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error adding staff member:', error);
+                }
+            }
+            setShowAddStaffModal(false);
+        };
+        const overlayStyle: React.CSSProperties = {
+            position: 'fixed', // Fixed position to cover the whole viewport
+            top: 0,           // Start from the top edge
+            left: 0,          // Start from the left edge
+            right: 0,         // Stretch to the right edge
+            bottom: 0,        // Stretch to the bottom edge
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+            display: 'flex',  // Use flexbox for centering the modal
+            alignItems: 'center', // Vertically center the content
+            justifyContent: 'center', // Horizontally center the content
+            zIndex: 1050,     // High z-index to keep it above other elements
+        };
+        const popupStyle: React.CSSProperties = {
+            backgroundColor: '#fff',     // White background for the popup content
+            padding: '20px',             // Padding inside the popup
+            borderRadius: '5px',         // Rounded corners
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)', // Shadow for 3D effect
+            zIndex: 1051,                // Higher z-index than overlay to appear on top
+            display: 'flex',             // Flexbox layout
+            flexDirection: 'column',     // Column layout for the content
+            maxWidth: '600px',           // Maximum width of the popup
+            maxHeight: '80vh',           // Maximum height (80% of the viewport height)
+            overflow: 'auto',            // Scroll inside if content is too large
+            position: 'fixed',           // Fixed position to stay in place
+            top: '50%',                  // Center vertically
+            left: '50%',                 // Center horizontally
+            transform: 'translate(-50%, -50%)', // Adjust position to truly center
+        };
+        
+        
+        
+    
+        return (
+            <div style={overlayStyle}>
+                <div style={popupStyle}>
+                    <h2>Add Staff Member</h2>
+                    <input 
+                        type="text" 
+                        value={inputStaffId ?? ''} 
+                        onChange={(e) => setInputStaffId(Number(e.target.value))} 
+                        placeholder="Enter Staff ID"
+                        ref={inputRef} // Attach the ref to the input element
+                    />
+                    <Button onClick={handleAddStaff}>Add</Button>
+                    <Button onClick={() => setShowAddStaffModal(false)}>Cancel</Button>
+                </div>
+            </div>
+        );
+    };
+    
+
 
 
 
@@ -150,8 +252,12 @@ const AdminSheltersPage: React.FC = () => {
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentStaffMembers = staffMembers.slice(indexOfFirstItem, indexOfLastItem);
         const totalPages = Math.ceil(staffMembers.length / itemsPerPage);
-
         const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+        ///////////////////////////////////////////////
+
+        
+       
+
 
 
         const overlayStyle: React.CSSProperties = {
@@ -348,7 +454,7 @@ const AdminSheltersPage: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {shelters.map(shelter => (
+                        {currentShelters.map(shelter => (
                             <tr key={shelter.shelterId}>
                                 {editingShelterId === shelter.shelterId ? (
                                     // Render input fields for editing
@@ -375,6 +481,8 @@ const AdminSheltersPage: React.FC = () => {
                                             <Button variant="warning" onClick={() => handleEditClick(shelter)}>Edit</Button>
                                             <Button variant="danger" onClick={() => handleDeleteClick(shelter.shelterId)}>Delete</Button>
                                             <Button variant="info" onClick={() => fetchStaffMembers(shelter.shelterId)}>Show Staff</Button>
+                                            <Button variant="primary" onClick={() => showAddStaffPopup(shelter.shelterId)}>Add Staff</Button>
+
 
                                         </td>
                                     </>
@@ -383,6 +491,13 @@ const AdminSheltersPage: React.FC = () => {
                         ))}
                     </tbody>
                 </Table>
+                <div className="pagination">
+                {Array.from({ length: totalShelterPages }, (_, index) => (
+                    <Button key={index + 1} onClick={() => paginate(index + 1)}>
+                        {index + 1}
+                    </Button>
+                ))}
+            </div>
                 <StaffMemberPopup 
                     staffMembers={shelterStaffMembers} 
                     show={showStaffPopup} 
@@ -394,6 +509,7 @@ const AdminSheltersPage: React.FC = () => {
                 show={showSidebar} 
                 onClose={() => setShowSidebar(false)} 
             />
+            <AddStaffPopup />
         </div>
     );
 };

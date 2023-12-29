@@ -102,6 +102,19 @@ public class StaffController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/set_shelter")
+    public ResponseEntity<StaffDTO> setShelter(@RequestParam Integer staffId, @RequestParam Integer shelterId) {
+        Optional<Staff> existingStaff = Optional.ofNullable(staffService.findStaffById(staffId));
+        if (existingStaff.isPresent()) {
+            Staff staff = existingStaff.get();
+            System.out.println(staff.getRole());
+            staff.setShelter(shelterService.findShelterById(shelterId));
+            Staff updatedStaff = staffService.saveStaff(staff);
+            return ResponseEntity.ok(convertToDTO(updatedStaff));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     // DELETE - Remove a staff member
     @DeleteMapping("/delete_staff_member")
     public ResponseEntity<?> deleteStaff(@RequestParam Integer id) {

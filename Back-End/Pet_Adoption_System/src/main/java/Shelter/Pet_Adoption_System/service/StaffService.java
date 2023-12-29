@@ -15,6 +15,9 @@ public class StaffService {
     @Autowired
     private StaffRepository staffRepository;
 
+    @Autowired
+    private SheltersService SheltersService;
+
     public List<Staff> findAllStaff() {
         return staffRepository.findAll();
     }
@@ -33,6 +36,12 @@ public class StaffService {
 
     public Staff saveStaff(Staff staff) {
         return staffRepository.save(staff);
+    }
+
+    public void setShelter(int staffId, int shelterId) {
+        Staff staff = staffRepository.findById(staffId).orElse(null);
+        staff.setShelter(SheltersService.findShelterById(shelterId));
+        staffRepository.save(staff);
     }
 
     public void deleteStaff(int id) {
