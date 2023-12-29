@@ -366,22 +366,26 @@ const AdminSheltersPage: React.FC = () => {
         const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
     
         const sidebarStyle: React.CSSProperties = {
-            backgroundColor: '#f0f0f0', // Example background color
-            width: '450px', // You can adjust the width
-            height: '100%', // Adjust the height as needed
+            backgroundColor: '#fff8f2', // A soft, warm background color
+            width: '430px', // Maintain the width
+            height: '100%', // Full height
             position: 'fixed',
             right: 0,
             top: 0,
-            overflowY: 'auto', // for scrollable content
-            zIndex: 1000, // Ensure it's above other content
+            overflowY: 'auto', // Scrollable content
+            zIndex: 1000, // Above other content
             padding: '20px',
-            // Add other styling as needed
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+            borderRadius: '10px 0 0 10px', // Rounded corners on the left side
         };
-
+        
         const tableStyle: React.CSSProperties = {
             tableLayout: 'auto',
             width: '100%',
+            borderRadius: '8px', // Rounded corners for tables
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Consistent with other elements
         };
+        
         
         const cellStyle: React.CSSProperties = {
             textAlign: 'left',
@@ -440,8 +444,8 @@ const AdminSheltersPage: React.FC = () => {
     return (
         <div style={styles.mainContainer}>
             <Container fluid style={styles.tableContainer}>
-                <h1 style={styles.header}>Shelter Administration</h1>
-                <button onClick={fetchAllStaffMembers}>Show All Staff</button>
+                <h1 style={styles.header}>Shelters Administration</h1>
+                <button style={{ backgroundColor: 'lightpink', color: 'white' }} onClick={fetchAllStaffMembers}>Show All Staff Members</button>
                 <Table striped bordered hover variant="dark" responsive>
                     <thead>
                         <tr>
@@ -515,34 +519,50 @@ const AdminSheltersPage: React.FC = () => {
 };
 const styles = {
     mainContainer: {
-        backgroundColor: 'white', // Soft color for a pet adoption theme
-        color: 'black',
+        backgroundColor: '#f0eae3', // A soft, warm background color
+        color: '#4a4a4a', // A darker shade for text for better readability
         height: '100vh',
         width: '100vw',
-        padding: '1rem 0',
+        padding: '0', // Increased padding for better spacing
         display: 'flex',
+        flexDirection: 'column' as 'column', // Align items in a column
         alignItems: 'center',
         justifyContent: 'center',
     },
     tableContainer: {
-        height: '100%',
-        padding: '0',
-        maxWidth: '80%',
+        backgroundColor: 'white', // Keep it white for clarity
+        borderRadius: '15px', // Rounded corners for a softer look
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)', // A light shadow for depth
+        padding: '1rem',
+        maxWidth: '90%', // Adjust width for better layout
+        margin: '0 auto', // Center align the container
     },
     header: {
-        color: '#FF6F61', // Warm color that fits the pet theme
-        textAlign: 'center' as 'center',
-        marginBottom: '1rem',
+        color: '#ff6f61', // Warm, welcoming color
+        fontSize: '1.6rem', // Larger font size
+        fontWeight: 'bold',
+        textAlign: 'center' as 'center', // Center align the text
+        marginBottom: '2rem', // More space below the header
     },
     tableCell: {
-        padding: '10px',
+        padding: '12px', // Slightly more padding for table cells
         border: '1px solid #ddd',
+        textAlign: 'left', // Align text to the left for readability
     },
     actionButton: {
-        padding: '10px',
-        border: '1px solid #ddd',
-        margin: '0 5px', // To add some space between buttons
+        padding: '8px 15px', // Adjust padding for buttons
+        border: 'none', // Remove border
+        borderRadius: '4px', // Rounded corners for buttons
+        backgroundColor: '#ff6f61', // Matching the theme's warm color
+        color: 'white', // Text color for contrast
+        margin: '0 5px',
+        cursor: 'pointer', // Cursor pointer on hover
+        fontSize: '0.9rem', // Adjust font size
+        fontWeight: 'bold',
     },
 };
+
+
+
 
 export default AdminSheltersPage;
