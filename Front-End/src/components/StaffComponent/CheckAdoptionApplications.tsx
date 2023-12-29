@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StaffPetDetailsModal from './staffPetDetailsModal';
 import AdopterDetailsModal from './AdopterDetailsModal'; 
-import './RequestsStaff.css'; 
+import './CheckAdoptionApplications.css'; 
 
 interface Pet {
   petId: number;
@@ -31,10 +31,11 @@ interface AdoptionRequest {
   status: 'reject' | 'accept' | 'pending';
 }
 
-const RequestsStaff: React.FC = () => {
+const CheckAdoptionApplications: React.FC = () => {
   const [requests, setRequests] = useState<AdoptionRequest[]>([]);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [selectedAdopter, setSelectedAdopter] = useState<Adopter | null>(null);
+  const [updateMessage, setUpdateMessage] = useState('');
 
   useEffect(() => {
     const mockData: AdoptionRequest[] = [
@@ -108,7 +109,7 @@ const RequestsStaff: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      // Replace 'YOUR_BACKEND_ENDPOINT' with your actual endpoint
+      // Here you would replace with your API call
       const response = await fetch('YOUR_BACKEND_ENDPOINT', {
         method: 'POST',
         headers: {
@@ -118,12 +119,15 @@ const RequestsStaff: React.FC = () => {
       });
 
       if (response.ok) {
-        console.log('Requests submitted successfully');
+        setUpdateMessage('Requests submitted successfully!');
+        setTimeout(() => setUpdateMessage(''), 3000);
       } else {
-        console.error('Failed to submit requests');
+        setUpdateMessage('Failed to submit requests. Please try again.');
+        setTimeout(() => setUpdateMessage(''), 3000);
       }
     } catch (error) {
-      console.error('Error submitting requests:', error);
+      setUpdateMessage('An error occurred. Please try again.');
+      setTimeout(() => setUpdateMessage(''), 3000);
     }
   };
 
@@ -165,10 +169,11 @@ const RequestsStaff: React.FC = () => {
           ))}
         </tbody>
       </table>
+      {updateMessage && <div className="notification">{updateMessage}</div>}
       {selectedPet && <StaffPetDetailsModal pet={selectedPet} onClose={closeModal} />}
       {selectedAdopter && <AdopterDetailsModal adopter={selectedAdopter} onClose={closeModal} />}  
     </div>
   );
 };
 
-export default RequestsStaff;
+export default CheckAdoptionApplications;

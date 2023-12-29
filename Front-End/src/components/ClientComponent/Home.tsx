@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './PetsComponent.css';
+import './Home.css';
 import PetDetailsModal from './PetDetailsModal'; 
-
 
 interface Pet {
   petId: number;
@@ -16,7 +15,7 @@ interface Pet {
   shelterId: number;
 }
 
-const PetsComponent: React.FC = () => {
+const Home: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
@@ -74,8 +73,8 @@ const PetsComponent: React.FC = () => {
       {pets.map(pet => (
         <div key={pet.petId} className="pet-sticky-note" onClick={() => handlePetClick(pet)}>
           <h2>{pet.name}</h2>
-          <p>Species: {pet.species}</p>
-          <p>Breed: {pet.breed}</p>
+          <p><strong>Species: {pet.species}</strong></p>
+          <p><strong>Breed: {pet.breed}</strong></p>
         </div>
       ))}
       {selectedPet && <PetDetailsModal pet={selectedPet} onClose={closeModal} />}
@@ -83,4 +82,4 @@ const PetsComponent: React.FC = () => {
   );
 };
 
-export default PetsComponent;
+export default Home;

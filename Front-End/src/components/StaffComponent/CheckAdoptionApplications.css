@@ -79,4 +79,21 @@
     text-decoration: none;
     cursor: pointer;
   }
-  
+
+  .notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}

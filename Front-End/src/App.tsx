@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AdopterSidebar from './components/ClientComponent/Sidebar';
+import StaffSidebar from './components/StaffComponent/StaffSidebar';
+import Home from './components/ClientComponent/Home';
+import AdoptedPets from './components/ClientComponent/AdoptedPets';
+import AdoptionRequests from './components/ClientComponent/AdoptionRequests';
+import Profile from './components/ClientComponent/Profile';
+import CheckAdoptionApplications from './components/StaffComponent/CheckAdoptionApplications';
+import AddPet from './components/StaffComponent/AddPet';
+import ShowPets from './components/StaffComponent/ShowPets';
+import StaffProfile from './components/StaffComponent/StaffProfile';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const isStaff = true; 
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="app-container">
+        {isStaff ? <StaffSidebar /> : <AdopterSidebar />}
+        <div className="content">
+          <Routes>
+            
+            {!isStaff && (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/adopted-pets" element={<AdoptedPets />} />
+                <Route path="/adoption-requests" element={<AdoptionRequests />} />
+                <Route path="/profile" element={<Profile />} />
+              </>
+            )}
+
+            {isStaff && (
+              <>
+                <Route path="/adoption-applications" element={<CheckAdoptionApplications />} />
+                <Route path="/add-pet" element={<AddPet />} />
+                <Route path="/show-pets" element={<ShowPets />} />
+                <Route path="/Staff-Profile" element={<StaffProfile />} />
+              </>
+            )}
+
+          </Routes>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
