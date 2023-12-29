@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Repository
 public class FilterPets<T extends Comparable<T>> implements IFilter {
     private final EntityManager entityManager;
 

@@ -5,12 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a85c8d-43f6-49ba-9d48-44399928edc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/DTO/FilterPetsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Filter/FilterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/FilterService/FilterPets.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/FilterService/FilterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/FilterService/IFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Pets/Pets.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Pets/Pets.java" afterDir="false" />
     </list>

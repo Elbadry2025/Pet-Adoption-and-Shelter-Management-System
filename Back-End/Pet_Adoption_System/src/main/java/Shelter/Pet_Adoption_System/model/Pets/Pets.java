@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "pets")
-public class Pets {
+public class Pets implements Comparable<Pets>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,5 +63,10 @@ public class Pets {
         this.behavior = behavior;
         this.description = description;
         this.shelter = shelter;
+    }
+
+    @Override
+    public int compareTo(Pets o) {
+        return this.getPetId().compareTo(o.getPetId());
     }
 }
