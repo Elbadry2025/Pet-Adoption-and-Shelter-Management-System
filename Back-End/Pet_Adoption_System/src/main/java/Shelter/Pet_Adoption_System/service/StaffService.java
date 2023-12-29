@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StaffService {
@@ -37,4 +38,8 @@ public class StaffService {
     public void deleteStaff(int id) {
         staffRepository.deleteById(id);
     }
+
+  public Optional<Staff> findStaffByEmail(String email) {
+            return staffRepository.findByEmailAddress(email);
+        }
 }

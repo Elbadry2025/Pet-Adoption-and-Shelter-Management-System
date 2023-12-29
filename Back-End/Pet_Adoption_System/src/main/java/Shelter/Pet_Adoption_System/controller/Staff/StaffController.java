@@ -50,6 +50,14 @@ public class StaffController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // GET a single staff member by email
+    @GetMapping("/get_staff_byEmail")
+    public ResponseEntity<StaffDTO> getStaffByEmail(@RequestParam String email) {
+        Optional<Staff> staff = staffService.findStaffByEmail(email);
+        return staff.map(s -> ResponseEntity.ok(convertToDTO(s)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // POST - Create a new staff member
     @PostMapping("/create_staff_member")
     public ResponseEntity<StaffDTO> createStaff(@RequestBody StaffDTO staffDTO) {
@@ -73,7 +81,7 @@ public class StaffController {
             staff.setRole(staffDTO.getRole());
             staff.setEmailAddress(staffDTO.getEmailAddress());
             staff.setPhoneNumber(staffDTO.getPhoneNumber());
-            // Update Shelter if necessary
+            staff.setShelter(shelterService.findShelterById(staffDTO.getShelterId()));
             Staff updatedStaff = staffService.saveStaff(staff);
             return ResponseEntity.ok(convertToDTO(updatedStaff));
         }
