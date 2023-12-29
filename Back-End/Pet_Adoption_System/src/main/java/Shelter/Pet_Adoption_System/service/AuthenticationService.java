@@ -7,7 +7,9 @@ import Shelter.Pet_Adoption_System.controller.Requests.StaffRegisterRequest;
 import Shelter.Pet_Adoption_System.controller.Responses.AuthenticationResponse;
 import Shelter.Pet_Adoption_System.model.Person.Adopters;
 import Shelter.Pet_Adoption_System.model.Person.Staff;
+import Shelter.Pet_Adoption_System.model.Shelters.Shelters;
 import Shelter.Pet_Adoption_System.repsitory.AdoptersRepository;
+import Shelter.Pet_Adoption_System.repsitory.SheltersRepository;
 import Shelter.Pet_Adoption_System.repsitory.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class AuthenticationService {
     private final AdoptersRepository adoptersRepository;
     private final StaffRepository staffRepository;
+    private final SheltersRepository sheltersRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
@@ -39,7 +42,7 @@ public class AuthenticationService {
             }
             Staff staff = new Staff(request.getName(), request.getEmailAddress(), request.getPhoneNumber(),
                     passwordEncoder.encode(request.getPasswordHash()), request.getRole(),
-                    request.getShelter());
+                    null);
             staffRepository.save(staff);
             String token =  jwtService.generateToken(staff);
             return AuthenticationResponse.builder()
@@ -74,7 +77,7 @@ public class AuthenticationService {
         }
     }
 
-    public AuthenticationResponse login(LoginRequest request) throws NoSuchElementException {
+    public AuthenticationResponse login(LoginRequest request, boolean type) throws NoSuchElementException { // type: false for adopters
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -88,12 +91,12 @@ public class AuthenticationService {
 
         Optional<Adopters> adopter = adoptersRepository.findByEmailAddress(request.getEmailAddress());
         Optional<Staff> staff = staffRepository.findByEmailAddress(request.getEmailAddress());
-        if (adopter.isPresent()) {
+        if (adopter.isPresent() && !type) {
             String token = jwtService.generateToken(adopter.get());
             return AuthenticationResponse.builder()
                     .token(token)
                     .build();
-        } else if (staff.isPresent()) {
+        } else if (staff.isPresent() && type) {
             String token = jwtService.generateToken(staff.get());
             return AuthenticationResponse.builder()
                     .token(token)
