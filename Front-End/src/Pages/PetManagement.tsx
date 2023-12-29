@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import "./PetManagement.css"
 import { httpRequest } from '../HttpProxy';
@@ -13,7 +13,7 @@ interface PetProfile {
   healthStatus: string;
   behavior: string;
   description: string;
-  imageUrls: string[]; // Change to an array to hold multiple images
+  imageUrls: string[];
 }
 
 const PetManagement = () => {
@@ -109,37 +109,50 @@ const PetManagement = () => {
     setPets(pets.filter(pet => pet.id !== petId));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFormValid()) {
       setIncompleteData(true);
       return;
     }
-    if (isEditMode) {
-      setPets(pets.map(pet => (pet.id === form.id ? form : pet)));
-    } else {
-      const newId = pets.length > 0 ? pets[pets.length - 1].id + 1 : 1;
-      const newPet = { ...form, id: newId }; // Generate a new ID for new pets
-      setPets([...pets, newPet]);
+    try {
+      const method = isEditMode ? 'put' : 'post';
+      const url = isEditMode ? `/pets/${form.id}` : '/pets'; // Adjust URL based on your API endpoint
+  
+      const response = await httpRequest(method, url, form);
+      
+      if(response.status === 200){
+        if (method === 'post') {
+          setPets([...pets, response.data]);
+        } else {
+          // If an existing pet is updated, update it in the state
+          setPets(pets.map(pet => (pet.id === form.id ? response.data : pet)));
+        }
+        // Reset form and close modal
+        setShowForm(false);
+        setIsEditMode(false);
+        setIncompleteData(false);
+        setForm({
+          id: -1,
+          name: '',
+          species: '',
+          breed: '',
+          age: '',
+          gender: 'Male',
+          healthStatus: '',
+          behavior: '',
+          description: '',
+          imageUrls: [],
+        });
+      }
+    } catch (error) {
+      alert('There was an error submitting the form:')
+      console.error('There was an error submitting the form:', error);
     }
-    setShowForm(false);
-    setIsEditMode(false);
-    setIncompleteData(false);
-    setForm({
-      id: -1,
-      name: '',
-      species: '',
-      breed: '',
-      age: '',
-      gender: 'Male',
-      healthStatus: '',
-      behavior: '',
-      description: '',
-      imageUrls: [],
-    });
   };
+  
   const isFormValid = () => {
-    // Check if all required fields are filled in
+    // Check if all fields are filled in
     return (
       form.name.trim() !== '' &&
       form.species.trim() !== '' &&
@@ -192,6 +205,22 @@ const PetManagement = () => {
     });
   };
   
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const response = await httpRequest('get', '/pets');
+        if (response.status === 200) {
+          setPets(response.data);
+        } else {
+          console.error('Failed to fetch pets:', response);
+        }
+      } catch (error) {
+        console.error('Error fetching pets:', error);
+      }
+    };
+
+    fetchPets();
+  }, []); 
 
   return (
     <>
