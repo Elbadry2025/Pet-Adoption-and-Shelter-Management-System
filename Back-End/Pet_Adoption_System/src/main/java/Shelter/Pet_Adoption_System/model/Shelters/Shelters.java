@@ -20,7 +20,7 @@ public class Shelters {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "email_address")
+    @Column(name = "email_address",unique = true,nullable = false)
     private String emailAddress;
 
     @Column(name = "phone_number")

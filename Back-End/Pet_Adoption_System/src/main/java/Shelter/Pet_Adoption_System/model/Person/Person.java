@@ -12,6 +12,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Person implements UserDetails {
+
+
     @Column(name = "name")
     protected String name;
 
