@@ -1,0 +1,52 @@
+.pet-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* Changes the cursor to indicate the card is clickable */
+    transition: background-color 0.3s, box-shadow 0.1s; /* Smooth transition for visual feedback */
+  }
+  .pet-card:hover {
+    background-color: #f8f9fa; /* Light background color on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slightly more pronounced shadow on hover */
+  }
+  
+  .pet-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-right: 1px solid #ddd;
+  }
+  
+  .pet-card-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    flex-grow: 1;
+  }
+  
+  .pet-card-info div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    margin: 5px 0;
+  }
+  
+  .pet-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .pet-card-actions button {
+    margin-bottom: 10px; /* Space between buttons */
+  }
+  
