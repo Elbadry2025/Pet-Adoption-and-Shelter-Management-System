@@ -50,6 +50,28 @@ public class StaffController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // GET a single staff member by email
+    @GetMapping("/get_staff_byEmail")
+    public ResponseEntity<StaffDTO> getStaffByEmail(@RequestParam String email) {
+        Optional<Staff> staff = staffService.findStaffByEmail(email);
+        return staff.map(s -> ResponseEntity.ok(convertToDTO(s)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/get_staff_byRole")
+    public List<StaffDTO> getStaffByRole(@RequestParam String role) {
+        return staffService.findStaffByRole(role).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/get_staff_byShelterId")
+    public List<StaffDTO> getStaffByShelterId(@RequestParam Integer shelterId) {
+        return staffService.findStaffByShelterId(shelterId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     // POST - Create a new staff member
     @PostMapping("/create_staff_member")
     public ResponseEntity<StaffDTO> createStaff(@RequestBody StaffDTO staffDTO) {
@@ -73,7 +95,20 @@ public class StaffController {
             staff.setRole(staffDTO.getRole());
             staff.setEmailAddress(staffDTO.getEmailAddress());
             staff.setPhoneNumber(staffDTO.getPhoneNumber());
-            // Update Shelter if necessary
+            staff.setShelter(shelterService.findShelterById(staffDTO.getShelterId()));
+            Staff updatedStaff = staffService.saveStaff(staff);
+            return ResponseEntity.ok(convertToDTO(updatedStaff));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/set_shelter")
+    public ResponseEntity<StaffDTO> setShelter(@RequestParam Integer staffId, @RequestParam Integer shelterId) {
+        Optional<Staff> existingStaff = Optional.ofNullable(staffService.findStaffById(staffId));
+        if (existingStaff.isPresent()) {
+            Staff staff = existingStaff.get();
+            System.out.println(staff.getRole());
+            staff.setShelter(shelterService.findShelterById(shelterId));
             Staff updatedStaff = staffService.saveStaff(staff);
             return ResponseEntity.ok(convertToDTO(updatedStaff));
         }

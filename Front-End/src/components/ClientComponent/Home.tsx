@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import PetDetailsModal from './PetDetailsModal'; 
+import PetDetailsModal from './PetDetailsModal';
 
 interface Pet {
   petId: number;
@@ -19,45 +19,24 @@ const Home: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
+  //APIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
   useEffect(() => {
-    setPets([
-      {
-        petId: 1,
-        name: "Max",
-        species: "Dog",
-        breed: "Labrador",
-        age: 3,
-        gender: "Male",
-        healthStatus: "Healthy",
-        behavior: "Friendly",
-        description: "Loves playing fetch",
-        shelterId: 101
-      },
-      {
-        petId: 2,
-        name: "Bella",
-        species: "Cat",
-        breed: "Persian",
-        age: 2,
-        gender: "Female",
-        healthStatus: "Healthy",
-        behavior: "Playful",
-        description: "Enjoys lounging in the sun",
-        shelterId: 102
-      },
-      {
-        petId: 3,
-        name: "Charlie",
-        species: "Dog",
-        breed: "Golden Retriever",
-        age: 4,
-        gender: "Male",
-        healthStatus: "Healthy",
-        behavior: "Energetic",
-        description: "Loves long walks and playing fetch",
-        shelterId: 103
-      },
-    ]);
+    // Fetch pet data from the backend
+    const fetchPets = async () => {
+      try {
+        const response = await fetch('YOUR_BACKEND_ENDPOINT'); // Replace with your backend URL
+        if (!response.ok) {
+          throw new Error('Failed to fetch pet data');
+        }
+        const petData: Pet[] = await response.json();
+        setPets(petData);
+      } catch (error) {
+        console.error('Error fetching pet data:', error);
+        // Handle error state or alert the user
+      }
+    };
+
+    fetchPets();
   }, []);
 
   const handlePetClick = (pet: Pet) => {

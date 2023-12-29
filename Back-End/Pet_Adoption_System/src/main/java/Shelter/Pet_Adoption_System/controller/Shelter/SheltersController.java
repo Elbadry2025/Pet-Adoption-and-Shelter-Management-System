@@ -41,13 +41,14 @@ public class SheltersController {
     public SheltersDTO createShelter(@RequestBody SheltersDTO shelterDTO) {
         Shelters newShelter = new Shelters(shelterDTO.getName(), shelterDTO.getLocation(), shelterDTO.getEmailAddress(), shelterDTO.getPhoneNumber());
         Shelters savedShelter = sheltersService.saveShelter(newShelter);
+
         return convertToDTO(savedShelter);
     }
 
     // PUT - Update an existing shelter
     @PutMapping("/update_shelter")
-    public ResponseEntity<SheltersDTO> updateShelter(@RequestParam Integer id, @RequestBody SheltersDTO shelterDTO) {
-        Shelters existingShelter = sheltersService.findShelterById(id);
+    public ResponseEntity<SheltersDTO> updateShelter(@RequestBody SheltersDTO shelterDTO) {
+        Shelters existingShelter = sheltersService.findShelterById(shelterDTO.getShelterId());
         if (existingShelter != null) {
             existingShelter.setName(shelterDTO.getName());
             existingShelter.setLocation(shelterDTO.getLocation());

@@ -20,8 +20,8 @@ const PetDetailsModal: React.FC<PetDetailsModalProps> = ({ pet, onClose }) => {
   const [successMessage, setSuccessMessage] = useState<string>(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
+  //APIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
   const handleAdopt = () => {
-    //API choose new pet
     setSuccessMessage("Request sent successfully. Wait for results.");
     setIsButtonDisabled(true);
   };
