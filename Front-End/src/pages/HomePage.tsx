@@ -15,7 +15,7 @@ const HomePage = () => {
 
     return (
         <>
-          <h1 style={{ margin: '50px', color: 'orange' }}>Welcome to Our Pet Shelter</h1>
+          <h1 style={{ margin: '150px', color: 'orange' }}>Welcome to Our Pet Shelter</h1>
           <div className="homepage-background">
             <button onClick={goToAdopterLogin} className="btn-adopter">Adopter</button>
             <button onClick={goToStaffLogin} className="btn-staff">Staff Member</button>
