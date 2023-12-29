@@ -58,6 +58,20 @@ public class StaffController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/get_staff_byRole")
+    public List<StaffDTO> getStaffByRole(@RequestParam String role) {
+        return staffService.findStaffByRole(role).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/get_staff_byShelterId")
+    public List<StaffDTO> getStaffByShelterId(@RequestParam Integer shelterId) {
+        return staffService.findStaffByShelterId(shelterId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     // POST - Create a new staff member
     @PostMapping("/create_staff_member")
     public ResponseEntity<StaffDTO> createStaff(@RequestBody StaffDTO staffDTO) {
