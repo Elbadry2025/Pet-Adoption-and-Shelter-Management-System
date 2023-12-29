@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './AdopterLoginForm.css';
+import './StaffLoginForm.css';
 import { useNavigate } from 'react-router-dom';
 
 export interface LoginRequest {
@@ -12,13 +12,13 @@ export interface Response {
   token: string;
 }
 
-const AdopterLoginForm = () => {
+const StaffLoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const goToSignup = () => {
-    navigate('/AdopterSignup');
+    navigate('/StaffSignup');
   }
 
   const goToAdoptions = (response: Response) => {
@@ -32,7 +32,7 @@ const AdopterLoginForm = () => {
     const request: LoginRequest = {emailAddress: username, passwordHash: password}
     try {
       const response = await axios(
-        `http://localhost:8081/api/auth/authenticateAdopter`,
+        `http://localhost:8081/api/auth/authenticateStaff`,
         {
             method: 'POST',
             data: request
@@ -46,9 +46,9 @@ const AdopterLoginForm = () => {
   };
 
   return (
-    <section className="vh-100 adopter-login-form">
+    <section className="vh-100 staff-login-form">
       <div className="container py-5 h-100">
-      <h1 style={{ position: 'absolute', top: '150px' }}>Adopters Login</h1>
+      <h1 style={{ position: 'absolute', top: '150px' }}>Staff Login</h1>
         <div className="row d-flex align-items-center justify-content-center h-100">
         <div className="col-md-5 col-lg-4 col-xl-4">
             <img
@@ -99,4 +99,4 @@ const AdopterLoginForm = () => {
   );
 };
 
-export default AdopterLoginForm;
+export default StaffLoginForm;

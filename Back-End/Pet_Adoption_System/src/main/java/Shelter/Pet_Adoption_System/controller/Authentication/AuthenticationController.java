@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:XXXX/")
+@CrossOrigin(origins = "http://localhost:5173/")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
@@ -31,11 +31,22 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.adopterRegister(request));
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    @PostMapping("/authenticateAdopter")
+    public ResponseEntity<AuthenticationResponse> authenticateAdopter(
             @RequestBody LoginRequest request
     ) {
-        AuthenticationResponse token = service.login(request);
+        AuthenticationResponse token = service.login(request, false);
+        if (token.getToken().equals("Unauthorized"))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(token);
+        else
+            return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/authenticateStaff")
+    public ResponseEntity<AuthenticationResponse> authenticateStaff(
+            @RequestBody LoginRequest request
+    ) {
+        AuthenticationResponse token = service.login(request, true);
         if (token.getToken().equals("Unauthorized"))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(token);
         else

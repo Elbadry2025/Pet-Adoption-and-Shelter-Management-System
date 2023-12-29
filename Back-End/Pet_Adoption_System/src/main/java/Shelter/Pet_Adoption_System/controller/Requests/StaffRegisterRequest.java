@@ -13,5 +13,5 @@ public class StaffRegisterRequest {
     private String passwordHash;
     private String phoneNumber;
     private String role;
-    private Shelters shelter;
+    private int shelterId;
 }
