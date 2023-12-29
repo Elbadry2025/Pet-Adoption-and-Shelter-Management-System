@@ -40,6 +40,15 @@ public class Pets {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "house_trained")
+    private boolean house_trained;
+
+    @Column(name = "vaccinated")
+    private boolean vaccinated;
+
+    @Column(name = "neutered")
+    private boolean neutered;
+
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     private Shelters shelter;
