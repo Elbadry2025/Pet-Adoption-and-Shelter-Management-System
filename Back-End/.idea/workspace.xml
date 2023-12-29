@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a85c8d-43f6-49ba-9d48-44399928edc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Authentication/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Authentication/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Requests/StaffRegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Requests/StaffRegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/repsitory/SheltersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/repsitory/SheltersRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/StaffSignupForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/components/StaffSignupForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -40,21 +40,14 @@ public class AuthenticationService {
             } else if (adoptersCheck.isPresent()) {
                 return AuthenticationResponse.builder().token("Already Exist").build();
             }
-            Optional<Shelters> shelter = sheltersRepository.findByShelterId(request.getShelterId());
-            if (shelter.isPresent()) {
-                Staff staff = new Staff(request.getName(), request.getEmailAddress(), request.getPhoneNumber(),
-                        passwordEncoder.encode(request.getPasswordHash()), request.getRole(),
-                        shelter.get());
-                staffRepository.save(staff);
-                String token =  jwtService.generateToken(staff);
-                return AuthenticationResponse.builder()
-                        .token(token)
-                        .build();
-            } else {
-                return AuthenticationResponse.builder()
-                        .token("Shelter not found")
-                        .build();
-            }
+            Staff staff = new Staff(request.getName(), request.getEmailAddress(), request.getPhoneNumber(),
+                    passwordEncoder.encode(request.getPasswordHash()), request.getRole(),
+                    null);
+            staffRepository.save(staff);
+            String token =  jwtService.generateToken(staff);
+            return AuthenticationResponse.builder()
+                    .token(token)
+                    .build();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return AuthenticationResponse.builder().token(e.getMessage()).build();

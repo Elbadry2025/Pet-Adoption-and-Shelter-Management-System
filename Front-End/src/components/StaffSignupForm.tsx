@@ -9,7 +9,6 @@ export interface StaffRegisterRequest {
     passwordHash: string;
     phoneNumber: string;
     role: string;
-    shelterId: number;
 }
 
 export interface Response {
@@ -22,7 +21,6 @@ const StaffSignupForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [shelterId, setShelterId] = useState(0);
   const navigate = useNavigate();
 
   const goToLogin = () => {
@@ -41,12 +39,12 @@ const StaffSignupForm = () => {
         alert("Provided passwords don't match.");
         return;
     }
-    if (name.length == 0 || password.length == 0 || phone.length == 0 || username.length == 0 || shelterId == 0) {
+    if (name.length == 0 || password.length == 0 || phone.length == 0 || username.length == 0) {
         alert("Please fill all the fields.");
         return;
     }
     const request: StaffRegisterRequest = {name: name, emailAddress: username, passwordHash: password, phoneNumber: phone,
-                                            role: 'Staff Member', shelterId: shelterId}
+                                            role: 'Staff Member'}
     try {
       const response = await axios(
         `http://localhost:8081/api/auth/staffRegister`,
@@ -95,18 +93,6 @@ const StaffSignupForm = () => {
                     className="form-control form-control-lg"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-
-              <div className="form-outline mb-4">
-                <label className="form-label" htmlFor="form1Example13">
-                    Shelter ID
-                </label>
-                <input
-                    type="number"
-                    className="form-control form-control-lg"
-                    value={shelterId}
-                    onChange={(e) => setShelterId(parseInt(e.target.value))}
                 />
               </div>
 
