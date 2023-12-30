@@ -1,6 +1,7 @@
 import React, { useState ,useEffect } from 'react';
 import './StaffProfile.css'; 
 import { httpRequest } from '../../HttpProxy';
+import {getUserId} from '../../CurrentSession'
 
 
 
@@ -23,7 +24,7 @@ const StaffProfile: React.FC = () => {
     const fetchStaffData = async () => {
       try {
         // Assuming you have a variable staffId that holds the dynamic ID
-        const staffId = 1; // Replace this with your dynamic ID
+        const staffId = getUserId(); // Replace this with your dynamic ID
 
         // Then you can use it in your API call
         const response = await httpRequest('get', `/api/staff/get_staff_byID?id=${staffId}`);

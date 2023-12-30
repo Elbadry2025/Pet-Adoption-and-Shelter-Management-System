@@ -38,7 +38,10 @@ const StaffLoginForm = () => {
             data: request
         }
       )
-      console.log('Response from server:', response.data.token);
+      console.log('Response from server:', response.data);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.role);
+      localStorage.setItem('userId', response.data.userId);
       goToAdoptions(response.data);
     } catch (err: any) {
       alert("User not found.")

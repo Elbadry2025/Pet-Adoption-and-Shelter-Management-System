@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { httpRequest } from '../../HttpProxy';
+import {getUserId} from '../../CurrentSession'
 
 type Adopter = {
 userId: number;
@@ -18,7 +19,7 @@ const AdopterProfile: React.FC = () => {
     const fetchAdopterData = async () => {
       try {
         // Assume '1' is the adopterId for the logged-in user; replace with dynamic value as needed.
-        const userId = 1; // Replace this with your dynamic ID
+        const userId = getUserId(); // Replace this with your dynamic ID
 
         // Then you can use it in your API call
         const response = await httpRequest('get', `/api/adopters/get_adopter_byID?id=${userId}`);

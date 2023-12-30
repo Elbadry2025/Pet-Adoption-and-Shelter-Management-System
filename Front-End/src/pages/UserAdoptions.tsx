@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { httpRequest } from '../HttpProxy';
+import { getUserId } from '../CurrentSession';
 
 
 interface Adoption {
@@ -15,7 +16,7 @@ const UserAdoptionsTable: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
-  const currentUserId = 1; // Replace with the actual user ID
+  const currentUserId = getUserId(); // Replace with the actual user ID
 
   useEffect(() => {
     const fetchAdoptions = async () => {
