@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
+import ShelterForm from './pages/ShelterForm';
+import AdminDashBoard from './pages/AdminDashBoard';
+import CheckAdoptionApplications from './pages/Staff/CheckAdoptionApplications';
+import StaffPetDetailsModal from './pages/Staff/staffPetDetailsModal';
+import PetDetailsModal from './pages/Client/PetDetailsModal';
+import UserAdoptionsTable from './pages/UserAdoptions';
+import StaffProfile from './pages/Staff/StaffProfile';
+import AdopterProfile from './pages/Client/AdopterProfile';
+import HomePage from './pages/HomePage';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/create-shelters" element={<ShelterForm />} />
+        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
+        <Route path="/CheckAdoptionApplications" element={<CheckAdoptionApplications />} />
+        <Route path='/PetDetailsModal' element={<PetDetailsModal />} />
+        <Route path='/UserAdoptionsTable' element={<UserAdoptionsTable />} />
+        <Route path='/StaffProfile' element={<StaffProfile />} />
+        <Route path='/AdopterProfile' element={<AdopterProfile />} />
+        <Route path='/HomePage' element={<HomePage />} />
+        
+        {/* You can add more Route components here for other paths */}
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

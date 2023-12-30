@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "adoptions")
+@Table(name = "adoptions", uniqueConstraints = @UniqueConstraint(columnNames = {"pet_id", "user_id"}))
 public class Adoptions {
 
     @Id

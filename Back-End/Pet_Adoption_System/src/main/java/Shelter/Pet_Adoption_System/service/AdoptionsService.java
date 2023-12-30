@@ -21,6 +21,10 @@ public class AdoptionsService {
         return adoptionsRepository.findById(id).orElse(null);
     }
 
+    public List<Adoptions> getAdoptionsByShelterId(Integer shelterId) {
+        return adoptionsRepository.findAllByShelterId(shelterId);
+    }
+
     public List<Adoptions> findAdoptionsByDate(Date date) {
         return adoptionsRepository.findByAdoptionDate(date);
     }
@@ -31,6 +35,12 @@ public class AdoptionsService {
 
     public Adoptions saveAdoption(Adoptions adoption) {
         return adoptionsRepository.save(adoption);
+    }
+
+    public void changeAdoptionStatus(int id, String status) {
+        Adoptions adoption = adoptionsRepository.findById(id).orElse(null);
+        adoption.setStatus(status);
+        adoptionsRepository.save(adoption);
     }
 
     public void deleteAdoption(int id) {

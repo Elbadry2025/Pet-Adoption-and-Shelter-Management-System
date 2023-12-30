@@ -1,0 +1,27 @@
+.homepage-background {
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 600px;
+    height: 600px;
+    background-image: url('back.png');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 45%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    vertical-align: auto;
+}
+
+.btn-adopter, .btn-staff {
+    padding: 10px 20px;
+    margin: 70px;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: orange;
+    position: relative;
+    top: 45%;
+    left: 50%;
+    transform: translate(-200%, -320%);
+}
