@@ -73,7 +73,8 @@ const CheckAdoptionApplications: React.FC = () => {
     const tableStyle = {
       width: '100%',
       borderCollapse: 'collapse' as 'collapse',
-      marginTop: '20px',
+      marginTop: '-500px',
+      marginLeft: '100px'
     };
   
     const thTdStyle = {

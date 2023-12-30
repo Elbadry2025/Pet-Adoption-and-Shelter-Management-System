@@ -20,7 +20,7 @@ public class Adoptions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adoptionId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pet_id")
     private Pets pet;
 

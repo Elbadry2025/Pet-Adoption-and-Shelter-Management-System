@@ -140,7 +140,7 @@ public class PetsController {
     }
     // DELETE - Remove a pet
     @DeleteMapping("/pets/{id}")
-    public ResponseEntity<?> deletePet(@PathVariable Integer id) {
+    public ResponseEntity<?> deletePet(@PathVariable("id") Integer id) {
         if (petsService.findPetById(id) != null) {
             petsService.deletePet(id);
             return ResponseEntity.ok().build();

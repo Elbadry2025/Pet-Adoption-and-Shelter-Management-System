@@ -16,7 +16,7 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer documentId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pet_id")
     private Pets pet;
 

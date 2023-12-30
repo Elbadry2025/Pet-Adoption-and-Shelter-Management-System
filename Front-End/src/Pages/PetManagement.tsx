@@ -3,9 +3,10 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import "./PetManagement.css"
 import { httpRequest } from '../HttpProxy';
 import {getUserId} from '../CurrentSession'
+import Sidebar from '../components/SidebarStaff';
 
-interface PetProfile {
-  id: number;
+export interface PetProfile {
+  petId: number;
   name: string;
   species: string;
   breed: string;
@@ -23,7 +24,7 @@ const PetManagement = () => {
   const [pets, setPets] = useState<PetProfile[]>([]);
   const [imageInputs, setImageInputs] = useState([{ id: 1, file: null }]);
   const [form, setForm] = useState<PetProfile>({
-    id: -1, // Temporary ID for new pets
+    petId: -1, // Temporary ID for new pets
     name: '',
     species: '',
     breed: '',
@@ -70,7 +71,7 @@ const PetManagement = () => {
   
   const addPet = () => {
     setForm({
-      id: -1,
+      petId: -1,
       name: '',
       species: '',
       breed: '',
@@ -95,9 +96,10 @@ const PetManagement = () => {
     handleEdit(pet);
   };
 
-  const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, petId: number) => {
+  const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pet: PetProfile) => {
+    console.log(pet.petId);
     event.stopPropagation();
-    handleDelete(petId);
+    handleDelete(pet.petId);
   };
 
   const handleEdit = (pet: PetProfile) => {
@@ -110,10 +112,10 @@ const PetManagement = () => {
 
   const handleDelete = async (petId: number) => {
     try {
-      const response = await httpRequest('delete', `/pets/${petId}`); // Adjust the URL based on your API endpoint
+      const response = await httpRequest('delete', `/api/pets/pets/${petId}`); // Adjust the URL based on your API endpoint
       
       if (response.status === 200 || response.status === 204) {
-        setPets(pets.filter(pet => pet.id !== petId));
+        setPets(pets.filter(pet => pet.petId !== petId));
       } else {
         console.error('Failed to delete pet:', response);
       }
@@ -145,7 +147,7 @@ const PetManagement = () => {
         } else {
           setPets(pets.map(pet => {
             console.log('Updating pet:', pet, 'with form:', form);
-            return pet.id === form.id ? { ...pet, ...form } : pet;
+            return pet.petId === form.petId ? { ...pet, ...form } : pet;
           }));
           
         }
@@ -154,7 +156,7 @@ const PetManagement = () => {
         setIsEditMode(false);
         setIncompleteData(false);
         setForm({
-          id: -1,
+          petId: -1,
           name: '',
           species: '',
           breed: '',
@@ -249,6 +251,8 @@ const PetManagement = () => {
 
   return (
     <>
+      <Sidebar/>
+    
       <Button variant="primary" onClick={addPet} style={{alignContent:'left', display:'flex'}}>Add Pet</Button>
   
       <Modal show={showForm} onHide={() => setShowForm(false)} centered>
@@ -360,7 +364,7 @@ const PetManagement = () => {
       {/*----------------------- List of Pets -----------------------*/}
       <div className="pet-list mt-4">
         {pets.map(pet => (
-          <div key={pet.id} className="pet-card" onClick={() => handleCardClick(pet)}>
+          <div key={pet.petId} className="pet-card" onClick={() => handleCardClick(pet)}>
               <img src={pet.imageUrls[0]} alt={`Image of ${pet.name}`} /> {/* Display only the first image */}
 
             <div className="pet-card-info">
@@ -376,7 +380,7 @@ const PetManagement = () => {
             </div>
             <div className="pet-card-actions">
               <Button variant="info" onClick={(e) => handleEditClick(e, pet)}>&nbsp;&nbsp;Edit&nbsp;&nbsp;</Button>
-              <Button variant="danger" onClick={(e) => handleDeleteClick(e, pet.id)}>Delete</Button>
+              <Button variant="danger" onClick={(e) => handleDeleteClick(e, pet)}>Delete</Button>
             </div>
           </div>
         ))}
