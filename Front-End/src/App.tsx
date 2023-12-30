@@ -13,6 +13,7 @@ import PetDetailsModal from './pages/Client/PetDetailsModal';
 import UserAdoptionsTable from './pages/UserAdoptions';
 import StaffProfile from './pages/Staff/StaffProfile';
 import AdopterProfile from './pages/Client/AdopterProfile';
+import HomePage from './pages/HomePage';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,8 @@ const App: React.FC = () => {
         <Route path='/UserAdoptionsTable' element={<UserAdoptionsTable />} />
         <Route path='/StaffProfile' element={<StaffProfile />} />
         <Route path='/AdopterProfile' element={<AdopterProfile />} />
+        <Route path='/HomePage' element={<HomePage />} />
+        
         {/* You can add more Route components here for other paths */}
       </Routes>
     </Router>
