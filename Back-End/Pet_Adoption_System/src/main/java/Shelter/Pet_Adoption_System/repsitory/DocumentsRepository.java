@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface DocumentsRepository extends JpaRepository<Documents, Integer> {
     List<Documents> findByPetPetId(Integer petId);
+    void deleteByPet_PetId(Integer petId);
+
 }
