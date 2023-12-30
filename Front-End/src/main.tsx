@@ -1,4 +1,4 @@
-import PetManagement from './Pages/PetManagement'; 
+import PetManagement from './pages/PetManagement';
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
