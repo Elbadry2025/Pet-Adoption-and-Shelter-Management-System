@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import { httpRequest } from '../HttpProxy'; // Assuming you have an HTTP utility for requests
+import ManagerSidebar from '../components/ManagerSidebar';
 
 type Shelter = {
     shelterId: number;
@@ -436,17 +437,14 @@ const AdminSheltersPage: React.FC = () => {
     };
     
     
-    
-    
-    
-    
 
     return (
         <div style={styles.mainContainer}>
+            <ManagerSidebar />
             <Container fluid style={styles.tableContainer}>
                 <h1 style={styles.header}>Shelters Administration</h1>
                 <button style={{ backgroundColor: 'lightpink', color: 'white' }} onClick={fetchAllStaffMembers}>Show All Staff Members</button>
-                <Table striped bordered hover variant="dark" responsive>
+                <Table striped bordered hover variant="light" responsive>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -482,10 +480,10 @@ const AdminSheltersPage: React.FC = () => {
                                         <td>{shelter.emailAddress}</td>
                                         <td>{shelter.phoneNumber}</td>
                                         <td>
-                                            <Button variant="warning" onClick={() => handleEditClick(shelter)}>Edit</Button>
-                                            <Button variant="danger" onClick={() => handleDeleteClick(shelter.shelterId)}>Delete</Button>
-                                            <Button variant="info" onClick={() => fetchStaffMembers(shelter.shelterId)}>Show Staff</Button>
-                                            <Button variant="primary" onClick={() => showAddStaffPopup(shelter.shelterId)}>Add Staff</Button>
+                                            <Button style={{marginRight:'5px'}} variant="warning" onClick={() => handleEditClick(shelter)}>Edit</Button>
+                                            <Button style={{marginRight:'5px'}} variant="danger" onClick={() => handleDeleteClick(shelter.shelterId)}>Delete</Button>
+                                            <Button style={{marginRight:'5px'}} variant="info" onClick={() => fetchStaffMembers(shelter.shelterId)}>Show Staff</Button>
+                                            <Button style={{marginRight:'5px'}} variant="primary" onClick={() => showAddStaffPopup(shelter.shelterId)}>Add Staff</Button>
 
 
                                         </td>
@@ -519,18 +517,18 @@ const AdminSheltersPage: React.FC = () => {
 };
 const styles = {
     mainContainer: {
-        backgroundColor: '#f0eae3', // A soft, warm background color
-        color: '#4a4a4a', // A darker shade for text for better readability
+        backgroundColor: '#f8f9fa', // Light grey background for main container
+        color: '#343a40', // Dark grey color for text for better readability
         height: '100vh',
         width: '100vw',
-        padding: '0', // Increased padding for better spacing
+        padding: '0', // Reset padding
         display: 'flex',
-        flexDirection: 'column' as 'column', // Align items in a column
+        flexDirection: 'column' as const, // Align items in a column
         alignItems: 'center',
         justifyContent: 'center',
     },
     tableContainer: {
-        backgroundColor: 'white', // Keep it white for clarity
+        backgroundColor: 'white', // White background for clarity
         borderRadius: '15px', // Rounded corners for a softer look
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)', // A light shadow for depth
         padding: '1rem',
@@ -538,10 +536,10 @@ const styles = {
         margin: '0 auto', // Center align the container
     },
     header: {
-        color: '#ff6f61', // Warm, welcoming color
+        color: '#007bff', // Blue color for headers, ensuring good contrast
         fontSize: '1.6rem', // Larger font size
         fontWeight: 'bold',
-        textAlign: 'center' as 'center', // Center align the text
+        textAlign: 'center' as const, // Center align the text
         marginBottom: '2rem', // More space below the header
     },
     tableCell: {
@@ -553,7 +551,7 @@ const styles = {
         padding: '8px 15px', // Adjust padding for buttons
         border: 'none', // Remove border
         borderRadius: '4px', // Rounded corners for buttons
-        backgroundColor: '#ff6f61', // Matching the theme's warm color
+        backgroundColor: '#28a745', // Green color for actionable buttons
         color: 'white', // Text color for contrast
         margin: '0 5px',
         cursor: 'pointer', // Cursor pointer on hover

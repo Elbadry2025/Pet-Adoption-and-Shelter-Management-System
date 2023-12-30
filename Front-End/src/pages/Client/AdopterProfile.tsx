@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { httpRequest } from '../../HttpProxy';
 import {getUserId} from '../../CurrentSession'
+import Sidebar from '../../components/SidebarAdopter';
 
 type Adopter = {
 userId: number;
@@ -80,6 +81,7 @@ const AdopterProfile: React.FC = () => {
 
   return (
     <div style={containerStyle} className="profile-container">
+      <Sidebar />
       <div className="profile-header">
         <h1>Adopter Profile</h1>
         {!isEditing && (

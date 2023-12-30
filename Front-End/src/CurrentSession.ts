@@ -1,4 +1,5 @@
 
+
 // Function to get the token from local storage
 export const getToken = (): string | null => {
     return localStorage.getItem('token');
@@ -14,4 +15,12 @@ export const getToken = (): string | null => {
     const userId = localStorage.getItem('userId');
     return userId ? parseInt(userId) : null;
   };
+
+export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+   
+    
+}
   

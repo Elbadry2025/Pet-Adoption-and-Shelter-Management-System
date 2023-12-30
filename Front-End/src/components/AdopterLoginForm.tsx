@@ -43,6 +43,8 @@ const AdopterLoginForm = () => {
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('userId', response.data.userId);
       goToAdoptions(response.data);
+      navigate('/AdopterProfile')
+
     } catch (err: any) {
       alert("User not found.")
     }

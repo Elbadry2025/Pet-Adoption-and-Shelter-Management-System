@@ -67,6 +67,7 @@ public class PetsController {
     }
 
     // POST - Create a new pet
+    // POST - Create a new pet
     @PostMapping("/create_pet")
     public ResponseEntity<String> createPet(@RequestBody PetsDTO petsDTO) {
         int staffId = petsDTO.getStaffId();
@@ -108,11 +109,12 @@ public class PetsController {
 
 
     // PUT - Update an existing pet
+    // PUT - Update an existing pet
     @PutMapping("/update_pet")
-    public ResponseEntity<?> updatePet(@RequestParam Integer id, @RequestBody PetsDTO petsDTO) {
+    public ResponseEntity<?> updatePet(@RequestBody PetsDTO petsDTO) {
+        int id = petsDTO.getPetId(); // Assuming you've added an `id` field to PetsDTO
         Pets existingPet = petsService.findPetById(id);
         if (existingPet != null) {
-            // Updating fields with new values from petsDTO
             existingPet.setName(petsDTO.getName());
             existingPet.setSpecies(petsDTO.getSpecies());
             existingPet.setBreed(petsDTO.getBreed());
@@ -121,9 +123,7 @@ public class PetsController {
             existingPet.setHealthStatus(petsDTO.getHealthStatus());
             existingPet.setBehavior(petsDTO.getBehavior());
             existingPet.setDescription(petsDTO.getDescription());
-            documentsService.deleteImageUrlsByPetId(id);
 
-            documentsService.deleteImageUrlsByPetId(id);
             for (String imageUrl : petsDTO.getImageUrls()) {
                 Documents document = new Documents();
                 document.setPet(existingPet);
@@ -149,8 +149,7 @@ public class PetsController {
     }
 
     @GetMapping("/getAllPets")
-    public ResponseEntity<List<PetsDTO>> getAllPetsByStaff(@RequestParam Integer staffId) {
-
+    public ResponseEntity<List<PetsDTO>> getAllPetsByStaff(@RequestParam int staffId) {
         List<PetsDTO> petsDTOs = petsService.findPetsByStaffId(staffId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

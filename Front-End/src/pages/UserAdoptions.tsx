@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { httpRequest } from '../HttpProxy';
 import { getUserId } from '../CurrentSession';
+import Sidebar from '../components/SidebarAdopter';
 
 
 interface Adoption {
@@ -74,6 +75,7 @@ const UserAdoptionsTable: React.FC = () => {
 
   return (
     <div style={containerStyle}>
+      <Sidebar />
       <h1 style={headerStyle}>Your Adoptions</h1>
       <table style={tableStyle}>
         <thead>
