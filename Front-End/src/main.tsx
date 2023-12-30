@@ -18,6 +18,7 @@ import CheckAdoptionApplications from './pages/Staff/CheckAdoptionApplications';
 import AdminDashBoard from './pages/AdminDashBoard';
 import ShelterForm from './pages/ShelterForm';
 import PetManagement from './pages/PetManagement';
+import Backup from './pages/backup';
 
 const router = createBrowserRouter([
   
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
   {
     path: "/PetManagement",
     element: <PetManagement/>,
+  },
+  {
+    path:"/backup",
+    element: <Backup/>,
   },
  
   {

@@ -121,6 +121,7 @@ const PetDetailsModal: React.FC = () => {
     };
 
     try {
+      console.log('Sending adoption request:', adoptionRequest);
       const response = await httpRequest('post', '/api/adoptions/create_adoption', adoptionRequest);
       if (response.status === 200) {
         alert('Adoption request sent successfully!');

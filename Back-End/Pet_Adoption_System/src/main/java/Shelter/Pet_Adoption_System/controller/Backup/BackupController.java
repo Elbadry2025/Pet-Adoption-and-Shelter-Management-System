@@ -21,9 +21,9 @@ public class BackupController {
         try {
             String dbName = "petshelter";
             String dbUser = "root";
-            String dbPass = "123456";
+            String dbPass = "Omar@1998";
 
-            String folderPath = "C:/Users/moham/Desktop/backup";
+            String folderPath = "C:\\Users\\DELL\\Desktop\\backup";
             String savePath = folderPath + "/backup.sql";
 
             String executeCmd = "C:/Program Files/MySQL/MySQL Workbench 8.0/mysqldump.exe -u " + dbUser + " -p" + dbPass + " --databases " + dbName + " -r " + savePath;
@@ -57,9 +57,9 @@ public class BackupController {
         try {
             String dbName = "petshelter";
             String dbUser = "root";
-            String dbPass = "123456";
+            String dbPass = "Omar@1998";
 
-            String folderPath = "C:/Users/moham/Desktop/backup";
+            String folderPath = "C:\\Users\\DELL\\Desktop\\backup";
             String sourcePath = folderPath + "/backup.sql";
 
             String[] executeCmd = new String[]{"C:/Program Files/MySQL/MySQL Workbench 8.0/mysql.exe", "-u" + dbUser, "-p" + dbPass, dbName, "-e", "source " + sourcePath};
