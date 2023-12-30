@@ -60,6 +60,13 @@ public class AdoptionsController {
         return adoption.map(adoptions -> ResponseEntity.ok(convertToDTO(adoptions))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/get_adoptions_by_userId")
+    public List<AdoptionsDTO> getAdoptionsByUserId(@RequestParam Integer userId) {
+        return adoptionsService.findAdoptionsByUserId(userId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/get_adoptions_by_shelterId")
     public List<AdoptionsDTO> getAdoptionsByShelterId(@RequestParam Integer shelterId) {
         return adoptionsService.getAdoptionsByShelterId(shelterId).stream()

@@ -1,49 +1,43 @@
-import React, { useState ,useEffect } from 'react';
-import './StaffProfile.css'; 
+import React, { useState, useEffect } from 'react';
+import './Profile.css';
 import { httpRequest } from '../../HttpProxy';
 
-
-
-
-type Staff = {
-  staffId: number;
+type Adopter = {
+userId: number;
   name: string;
-  role: string;
   emailAddress: string;
   phoneNumber: string;
-  shelterId: number;
 };
 
-const StaffProfile: React.FC = () => {
-  const [staffData, setStaffData] = useState<Staff | null>(null);
+const AdopterProfile: React.FC = () => {
+  const [adopterData, setAdopterData] = useState<Adopter | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [updateMessage, setUpdateMessage] = useState('');
 
   useEffect(() => {
-    const fetchStaffData = async () => {
+    const fetchAdopterData = async () => {
       try {
-        // Assuming you have a variable staffId that holds the dynamic ID
-        const staffId = 1; // Replace this with your dynamic ID
+        // Assume '1' is the adopterId for the logged-in user; replace with dynamic value as needed.
+        const userId = 1; // Replace this with your dynamic ID
 
         // Then you can use it in your API call
-        const response = await httpRequest('get', `/api/staff/get_staff_byID?id=${staffId}`);
-
+        const response = await httpRequest('get', `/api/adopters/get_adopter_byID?id=${userId}`);
         if (response.status === 200) {
-          setStaffData(response.data);
+          setAdopterData(response.data);
         } else {
-          throw new Error('Failed to fetch staff data');
+          throw new Error('Failed to fetch adopter data');
         }
       } catch (error) {
-        console.error('Error fetching staff data:', error);
+        console.error('Error fetching adopter data:', error);
       }
     };
 
-    fetchStaffData();
+    fetchAdopterData();
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setStaffData((prevStaffData) => (prevStaffData ? { ...prevStaffData, [name]: value } : null));
+    setAdopterData((prevAdopterData) => (prevAdopterData ? { ...prevAdopterData, [name]: value } : null));
   };
 
   const handleEditClick = () => {
@@ -56,23 +50,24 @@ const StaffProfile: React.FC = () => {
   };
 
   const handleUpdateClick = async () => {
-    if (staffData) {
+    if (adopterData) {
       try {
-        const response = await httpRequest('put', '/api/staff/update_staff_member?id=' + staffData.staffId, staffData);
+        const response = await httpRequest('put', `/api/adopters/update_adopter?id=${adopterData.userId}`, adopterData);
         if (response.status === 200) {
-          setStaffData(response.data);
+          setAdopterData(response.data);
           setUpdateMessage('Profile updated successfully!');
         } else {
-          throw new Error('Failed to update staff data');
+          throw new Error('Failed to update adopter data');
         }
       } catch (error) {
-        console.error('Error updating staff data:', error);
+        console.error('Error updating adopter data:', error);
         setUpdateMessage('Failed to update profile. Please try again.');
       }
       setIsEditing(false);
       setTimeout(() => setUpdateMessage(''), 5000);
     }
   };
+
   const containerStyle: React.CSSProperties = {
     alignItems: 'center',
     justifyContent: 'center',
@@ -85,7 +80,7 @@ const StaffProfile: React.FC = () => {
   return (
     <div style={containerStyle} className="profile-container">
       <div className="profile-header">
-        <h1>Staff Profile</h1>
+        <h1>Adopter Profile</h1>
         {!isEditing && (
           <button className="edit-button" onClick={handleEditClick}>Edit</button>
         )}
@@ -96,15 +91,14 @@ const StaffProfile: React.FC = () => {
           <input 
             type="text" 
             name="name" 
-            value={staffData?.name} 
+            value={adopterData?.name} 
             onChange={handleInputChange}
             placeholder="Name"
           />
-
           <input 
             type="tel" 
             name="phoneNumber" 
-            value={staffData?.phoneNumber} 
+            value={adopterData?.phoneNumber} 
             onChange={handleInputChange}
             placeholder="Phone Number"
           />
@@ -112,12 +106,10 @@ const StaffProfile: React.FC = () => {
         </div>
       ) : (
         <div className="profile-info">
-          {staffData && <p><strong>ID:</strong> {staffData.staffId}</p>}
-          <p><strong>Name:</strong> {staffData?.name}</p>
-          {staffData && <p><strong>Email Address:</strong> {staffData.emailAddress}</p>}
-          {staffData && staffData.phoneNumber && <p><strong>Phone Number:</strong> {staffData.phoneNumber}</p>}
-          {staffData && <p><strong>Role:</strong> {staffData.role}</p>}
-          {staffData && <p><strong>ShelterID:</strong> {staffData.shelterId}</p>}
+          {adopterData && <p><strong>ID:</strong> {adopterData.userId}</p>}
+          <p><strong>Name:</strong> {adopterData?.name}</p>
+          {adopterData && <p><strong>Email Address:</strong> {adopterData.emailAddress}</p>}
+          {adopterData && adopterData.phoneNumber && <p><strong>Phone Number:</strong> {adopterData.phoneNumber}</p>}
         </div>
       )}
 
@@ -131,7 +123,6 @@ const StaffProfile: React.FC = () => {
       {updateMessage && <div className="notification">{updateMessage}</div>}
     </div>
   );
-      };
+};
 
-
-export default StaffProfile;
+export default AdopterProfile;

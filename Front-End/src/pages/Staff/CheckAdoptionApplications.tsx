@@ -87,7 +87,9 @@ const CheckAdoptionApplications: React.FC = () => {
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
-      marginRight: '5px',
+      
+      
+      marginTop: 'auto',
     };
   
     const notificationStyle = {
@@ -100,14 +102,26 @@ const CheckAdoptionApplications: React.FC = () => {
     };
     const fullHeightStyle = {
       width: '100vh',
-      height: '80vh',
+      minheight: '100vh',
       overflowY: 'auto' as 'auto',
       padding: '20px',
     };
+
+    const containerStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      minWidth: '100vw',
+      padding: '20px',
+      boxSizing: 'border-box' as 'border-box',
+    };
+
+  
   
 
     return (
-      <div className="requests-staff" style={fullHeightStyle}>
+      <div className="requests-staff" style={containerStyle}>
         
         <table style={tableStyle}>
           <thead>
