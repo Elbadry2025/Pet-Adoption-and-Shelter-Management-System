@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a85c8d-43f6-49ba-9d48-44399928edc5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Backup/BackupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Pets/Pets.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/model/Pets/Pets.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,22 +32,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Generic-Filter",
-    "last_opened_file_path": "F:/My Projects/Pet-Adoption-and-Shelter-Management-System/Back-End",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Generic-Filter&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/My Projects/Pet-Adoption-and-Shelter-Management-System/Back-End&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="PetAdoptionSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Shelter.Pet_Adoption_System.PetAdoptionSystemApplication" />
       <module name="Pet_Adoption_System" />
+      <option name="VM_PARAMETERS" value="-Xmx4096m" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="Shelter.Pet_Adoption_System.*" />

@@ -81,7 +81,7 @@ public class FilterPets<T extends Comparable<T>> implements IFilter {
                     .like(root.get("species"), "%" + filterPetsDto.getSpecies() + "%"));
         }
         if (!Objects.equals(filterPetsDto.getShelter_location(), "")) {
-            Join<Pets, Shelters> shelterJoin = root.join("shelter_id");
+            Join<Pets, Shelters> shelterJoin = root.join("shelter");
             predicates.add(criteriaBuilder
                     .like(shelterJoin.get("location"), "%" + filterPetsDto.getShelter_location() + "%"));
         }
