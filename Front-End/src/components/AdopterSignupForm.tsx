@@ -27,7 +27,7 @@ const AdopterSignupForm = () => {
   }
 
   const goToAdoptions = (response: Response) => {
-    navigate('/home', {
+    navigate('/useradoptionstable', {
         state: response.token
     });
   }

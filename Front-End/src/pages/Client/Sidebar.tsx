@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import './Sidebar.css';
 import React, { useState } from 'react';
 import { FaHome, FaPaw, FaEnvelopeOpenText, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
     return (

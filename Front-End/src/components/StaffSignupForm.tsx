@@ -28,7 +28,7 @@ const StaffSignupForm = () => {
   }
 
   const goToAdoptions = (response: Response) => {
-    navigate('/home', {
+    navigate('/CheckAdoptionApplications', {
         state: response.token
     });
   }

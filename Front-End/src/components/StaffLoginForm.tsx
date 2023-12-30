@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './StaffLoginForm.css';
 import { useNavigate } from 'react-router-dom';
+import { getRole } from '../CurrentSession';
 
 export interface LoginRequest {
     emailAddress: string;
@@ -22,9 +23,16 @@ const StaffLoginForm = () => {
   }
 
   const goToAdoptions = (response: Response) => {
-    navigate('/home', {
+
+    if (getRole() == 'Manager') {
+      navigate('/AdminDashboard', {
         state: response.token
-    });
+      });
+    } else {
+      navigate('/CheckAdoptionApplications', {
+        state: response.token
+      });
+    }
   }
 
   const handleLogin = async (event: any) => {

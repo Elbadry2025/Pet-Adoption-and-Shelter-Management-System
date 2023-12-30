@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StaffPetDetailsModal from './staffPetDetailsModal';
 import AdopterDetailsModal from './AdopterDetailsModal'; 
-import './CheckAdoptionApplications.css';
 import { httpRequest } from '../../HttpProxy';
 import {getUserId} from '../../CurrentSession'
 
@@ -72,7 +71,8 @@ const CheckAdoptionApplications: React.FC = () => {
     const tableStyle = {
       width: '100%',
       borderCollapse: 'collapse' as 'collapse',
-      marginTop: '20px',
+      marginTop: '-300px',
+      marginLeft: '100px'
     };
   
     const thTdStyle = {

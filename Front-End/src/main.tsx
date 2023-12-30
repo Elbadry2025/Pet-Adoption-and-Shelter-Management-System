@@ -19,6 +19,7 @@ import PetDetailsModal from './pages/Client/PetDetailsModal';
 import CheckAdoptionApplications from './pages/Staff/CheckAdoptionApplications';
 import AdminDashBoard from './pages/AdminDashBoard';
 import ShelterForm from './pages/ShelterForm';
+import Backup from './pages/Backup';
 
 const router = createBrowserRouter([
   
@@ -78,7 +79,10 @@ const router = createBrowserRouter([
     path:"/create-shelters",
     element: <ShelterForm/>,
   },
- 
+  {
+    path:"/backup",
+    element: <Backup/>,
+  },
   {
     path: "*",
     element: <h1>404</h1>,

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Profile.css';
 import { httpRequest } from '../../HttpProxy';
 import {getUserId} from '../../CurrentSession'
 

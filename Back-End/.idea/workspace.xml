@@ -5,8 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a85c8d-43f6-49ba-9d48-44399928edc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Backup/BackupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Pet/PetsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/controller/Pet/PetsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/PetsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/java/Shelter/Pet_Adoption_System/service/PetsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pet_Adoption_System/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Pet_Adoption_System/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/AdopterDetailsModel.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/AdopterLoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/components/AdopterLoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/PetDetailsModal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/PetsComponent.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/PetsComponent.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/RequestsStaff.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/RequestsStaff.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/components/StaffSignupForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/components/StaffSignupForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/AdopterProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/pages/Client/AdopterProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/Home.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/Home.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/Profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/Sidebar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Client/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/pages/Client/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/AddPet.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/CheckAdoptionApplications.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/CheckAdoptionApplications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/pages/Staff/CheckAdoptionApplications.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/ShowPets.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/StaffProfile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/StaffProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/pages/Staff/StaffProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/Staff/StaffSidebar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/src/pages/UserAdoptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/src/pages/UserAdoptions.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,18 +62,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Generic-Filter&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/My Projects/Pet-Adoption-and-Shelter-Management-System/Back-End&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Connecting-things-together",
+    "last_opened_file_path": "F:/My Projects/Pet-Adoption-and-Shelter-Management-System/Back-End",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="PetAdoptionSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Shelter.Pet_Adoption_System.PetAdoptionSystemApplication" />

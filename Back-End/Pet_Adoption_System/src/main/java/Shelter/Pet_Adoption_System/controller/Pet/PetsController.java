@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -151,11 +152,11 @@ public class PetsController {
     @GetMapping("/getAllPets")
     public ResponseEntity<List<PetsDTO>> getAllPetsByStaff(@RequestParam Integer staffId) {
 
-        List<PetsDTO> petsDTOs = petsService.findPetsByStaffId(staffId).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+//        List<PetsDTO> petsDTOs = petsService.findPetsByStaffId(staffId).stream()
+//                .map(this::convertToDTO)
+//                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(petsDTOs);
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
 }

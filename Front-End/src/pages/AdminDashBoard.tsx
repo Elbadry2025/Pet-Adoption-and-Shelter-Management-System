@@ -289,9 +289,7 @@ const AdminSheltersPage: React.FC = () => {
     
         // Styles for the close button
         const closeButtonStyle: React.CSSProperties = {
-            alignSelf: 'flex-end',
             padding: '5px 10px',
-            background: 'none',
             border: 'none',
             cursor: 'pointer',
             fontWeight: 'bold',
@@ -334,7 +332,7 @@ const AdminSheltersPage: React.FC = () => {
                         </button>
                     ))}
                 </div>
-                    <button onClick={onClose} style={closeButtonStyle}>Close</button>
+                    <button onClick={onClose} style={closeButtonStyle} className='btn btn-primary'>Close</button>
                 </div>
             </div>
         );
@@ -446,7 +444,7 @@ const AdminSheltersPage: React.FC = () => {
             <Container fluid style={styles.tableContainer}>
                 <h1 style={styles.header}>Shelters Administration</h1>
                 <button style={{ backgroundColor: 'lightpink', color: 'white' }} onClick={fetchAllStaffMembers}>Show All Staff Members</button>
-                <Table striped bordered hover variant="dark" responsive>
+                <Table striped bordered hover variant="light" responsive>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -482,9 +480,9 @@ const AdminSheltersPage: React.FC = () => {
                                         <td>{shelter.emailAddress}</td>
                                         <td>{shelter.phoneNumber}</td>
                                         <td>
-                                            <Button variant="warning" onClick={() => handleEditClick(shelter)}>Edit</Button>
-                                            <Button variant="danger" onClick={() => handleDeleteClick(shelter.shelterId)}>Delete</Button>
-                                            <Button variant="info" onClick={() => fetchStaffMembers(shelter.shelterId)}>Show Staff</Button>
+                                            <Button variant="warning" onClick={() => handleEditClick(shelter)} style={{ marginRight: '5px' }}>Edit</Button>
+                                            <Button variant="danger" onClick={() => handleDeleteClick(shelter.shelterId)} style={{ marginRight: '5px' }}>Delete</Button>
+                                            <Button variant="info" onClick={() => fetchStaffMembers(shelter.shelterId)} style={{ marginRight: '5px' }}>Show Staff</Button>
                                             <Button variant="primary" onClick={() => showAddStaffPopup(shelter.shelterId)}>Add Staff</Button>
 
 
@@ -543,6 +541,8 @@ const styles = {
         fontWeight: 'bold',
         textAlign: 'center' as 'center', // Center align the text
         marginBottom: '2rem', // More space below the header
+        position: 'relative',
+        top: '30px'
     },
     tableCell: {
         padding: '12px', // Slightly more padding for table cells

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { httpRequest } from '../HttpProxy';
 import { getUserId } from '../CurrentSession';
+import { useNavigate } from 'react-router';
 
 
 interface Adoption {
@@ -15,8 +16,13 @@ const UserAdoptionsTable: React.FC = () => {
   const [adoptions, setAdoptions] = useState<Adoption[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
 
-  const currentUserId = getUserId(); // Replace with the actual user ID
+  const currentUserId = getUserId();
+
+  const gotoAdoptPage = () => {
+    navigate('/petdetailsmodal');
+  }
 
   useEffect(() => {
     const fetchAdoptions = async () => {
@@ -24,6 +30,7 @@ const UserAdoptionsTable: React.FC = () => {
         const response = await httpRequest('get', `/api/adoptions/get_adoptions_by_userId?userId=${currentUserId}`);
         if (response.status === 200) {
           setAdoptions(response.data);
+          console.log(response);
         } else {
           throw new Error('Failed to fetch adoptions');
         }
@@ -97,6 +104,7 @@ const UserAdoptionsTable: React.FC = () => {
           ))}
         </tbody>
       </table>
+      <button className='btn btn-primary' style={{ margin: '20px' }} onClick={gotoAdoptPage}>Adopt now</button>
     </div>
   );
 };
