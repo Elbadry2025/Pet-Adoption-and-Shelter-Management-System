@@ -11,7 +11,7 @@ public class DocumentsDTO {
     private Integer documentId;
     private Integer petId; // Reference to Pet
     private String documentType;
-    private byte[] document; // The document content
+    private String document; // The document content
 
     // Constructors, Getters, Setters
 }

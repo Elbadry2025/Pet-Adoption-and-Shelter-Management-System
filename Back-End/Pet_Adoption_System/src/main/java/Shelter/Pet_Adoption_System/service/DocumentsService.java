@@ -33,4 +33,10 @@ public class DocumentsService {
     public void deleteDocument(int id) {
         documentsRepository.deleteById(id);
     }
+    public Documents save(Documents document) {
+        return documentsRepository.save(document);
+    }
+    public void deleteImageUrlsByPetId(Integer petId) {
+        documentsRepository.deleteByPet_PetId(petId);
+    }
 }

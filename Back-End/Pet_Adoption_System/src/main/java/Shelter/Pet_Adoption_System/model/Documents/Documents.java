@@ -23,11 +23,10 @@ public class Documents {
     @Column(name = "document_type")
     private String documentType;
 
-    @Lob
     @Column(name = "document")
-    private byte[] document;
+    private String document;
 
-    public Documents(Pets pet, String documentType, byte[] document) {
+    public Documents(Pets pet, String documentType, String document) {
         this.pet = pet;
         this.documentType = documentType;
         this.document = document;

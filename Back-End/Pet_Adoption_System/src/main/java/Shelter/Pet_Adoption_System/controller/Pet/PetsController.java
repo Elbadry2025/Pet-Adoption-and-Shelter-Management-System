@@ -2,10 +2,13 @@ package Shelter.Pet_Adoption_System.controller.Pet;
 
 
 import Shelter.Pet_Adoption_System.controller.DTO.PetsDTO;
+import Shelter.Pet_Adoption_System.model.Documents.Documents;
 import Shelter.Pet_Adoption_System.model.Pets.Pets;
 import Shelter.Pet_Adoption_System.model.Shelters.Shelters;
+import Shelter.Pet_Adoption_System.service.DocumentsService;
 import Shelter.Pet_Adoption_System.service.PetsService;
 import Shelter.Pet_Adoption_System.service.SheltersService;
+import Shelter.Pet_Adoption_System.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/pets")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class PetsController {
 
     @Autowired
@@ -23,9 +27,14 @@ public class PetsController {
 
     @Autowired
     private SheltersService sheltersService;
+    @Autowired
+    private StaffService staffService;
+    @Autowired
+    private DocumentsService documentsService;
 
     // Convert to DTO
     private PetsDTO convertToDTO(Pets pet) {
+        List<String> imageUrls = petsService.getImageUrlsForPet(pet.getPetId());
         return new PetsDTO(
                 pet.getPetId(),
                 pet.getName(),
@@ -36,7 +45,8 @@ public class PetsController {
                 pet.getHealthStatus(),
                 pet.getBehavior(),
                 pet.getDescription(),
-                pet.getShelter() != null ? pet.getShelter().getShelterId() : null
+                pet.getShelter() != null ? pet.getShelter().getShelterId() : null,
+                imageUrls
         );
     }
 
@@ -58,7 +68,8 @@ public class PetsController {
 
     // POST - Create a new pet
     @PostMapping("/create_pet")
-    public ResponseEntity<PetsDTO> createPet(@RequestBody PetsDTO petsDTO) {
+    public ResponseEntity<String> createPet(@RequestBody PetsDTO petsDTO) {
+        int staffId = petsDTO.getStaffId();
         Pets newPet = new Pets();
         newPet.setName(petsDTO.getName());
         newPet.setSpecies(petsDTO.getSpecies());
@@ -69,20 +80,30 @@ public class PetsController {
         newPet.setBehavior(petsDTO.getBehavior());
         newPet.setDescription(petsDTO.getDescription());
 
+        int shelterID = staffService.findStaffById(staffId).getShelter().getShelterId();
         // Assuming you have a method to find the shelter by ID
-        if (petsDTO.getShelterId() != null) {
-            Optional<Shelters> shelter = Optional.ofNullable(sheltersService.findShelterById(petsDTO.getShelterId()));
-            shelter.ifPresent(newPet::setShelter);
-        }
+        Optional<Shelters> shelter = Optional.ofNullable(sheltersService.findShelterById(shelterID));
+        shelter.ifPresent(newPet::setShelter);
 
         // Save the new entity
         Pets savedPet = petsService.savePet(newPet);
+        Integer petId = savedPet.getPetId();
+
+        // Save image URLs
+        if (petsDTO.getImageUrls() != null && !petsDTO.getImageUrls().isEmpty()) {
+            for (String imageUrl : petsDTO.getImageUrls()) {
+                Documents document = new Documents();
+                document.setPet(newPet);
+                document.setDocument(imageUrl); // Assuming 'document' field holds the URL
+                document.setDocumentType("image");
+                documentsService.save(document);
+            }
+        }
 
         // Convert the saved entity back to DTO
-        PetsDTO savedPetDTO = convertToDTO(savedPet);
+        //PetsDTO savedPetDTO = convertToDTO(savedPet);
 
-        // Return the saved DTO
-        return ResponseEntity.ok(savedPetDTO);
+        return ResponseEntity.ok("Success");
     }
 
 
@@ -100,36 +121,42 @@ public class PetsController {
             existingPet.setHealthStatus(petsDTO.getHealthStatus());
             existingPet.setBehavior(petsDTO.getBehavior());
             existingPet.setDescription(petsDTO.getDescription());
+            documentsService.deleteImageUrlsByPetId(id);
 
-            // Handling the shelter
-            if (petsDTO.getShelterId() != null) {
-                Optional<Shelters> shelter = Optional.ofNullable(sheltersService.findShelterById(petsDTO.getShelterId()));
-                if (shelter.isPresent()) {
-                    existingPet.setShelter(shelter.get());
-                } else {
-                    // If shelterId is invalid, you might want to handle it differently
-                    return ResponseEntity.badRequest().body("Invalid shelter ID");
-                }
+            documentsService.deleteImageUrlsByPetId(id);
+            for (String imageUrl : petsDTO.getImageUrls()) {
+                Documents document = new Documents();
+                document.setPet(existingPet);
+                document.setDocument(imageUrl);
+                document.setDocumentType("image");
+                documentsService.save(document);
             }
 
-            // Save the updated pet
+            // Save the updated pet and convert to DTO
             Pets updatedPet = petsService.savePet(existingPet);
-
-            // Convert the saved entity back to DTO
-            return ResponseEntity.ok(convertToDTO(updatedPet));
+            return ResponseEntity.ok("success");
         }
         return ResponseEntity.notFound().build();
     }
-
-
     // DELETE - Remove a pet
-    @DeleteMapping("/delete_pet")
-    public ResponseEntity<?> deletePet(@RequestParam Integer id) {
+    @DeleteMapping("/pets/{id}")
+    public ResponseEntity<?> deletePet(@PathVariable Integer id) {
         if (petsService.findPetById(id) != null) {
             petsService.deletePet(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/getAllPets")
+    public ResponseEntity<List<PetsDTO>> getAllPetsByStaff(@RequestParam Integer staffId) {
+
+        List<PetsDTO> petsDTOs = petsService.findPetsByStaffId(staffId).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(petsDTOs);
+    }
+
 }
 

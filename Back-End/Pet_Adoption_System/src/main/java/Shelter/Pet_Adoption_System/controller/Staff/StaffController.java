@@ -58,6 +58,7 @@ public class StaffController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     @GetMapping("/get_staff_byRole")
     public List<StaffDTO> getStaffByRole(@RequestParam String role) {
         return staffService.findStaffByRole(role).stream()
@@ -96,6 +97,7 @@ public class StaffController {
             staff.setEmailAddress(staffDTO.getEmailAddress());
             staff.setPhoneNumber(staffDTO.getPhoneNumber());
             staff.setShelter(shelterService.findShelterById(staffDTO.getShelterId()));
+
             Staff updatedStaff = staffService.saveStaff(staff);
             return ResponseEntity.ok(convertToDTO(updatedStaff));
         }
