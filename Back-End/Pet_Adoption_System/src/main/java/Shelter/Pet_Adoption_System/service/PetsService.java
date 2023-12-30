@@ -16,6 +16,7 @@ public class PetsService {
     private StaffService staffService;
     @Autowired
     private PetsRepository petsRepository;
+    @Autowired
     private DocumentsService documentsService;
 
     public List<String> getImageUrlsForPet(Integer petId) {

@@ -23,7 +23,7 @@ public class Documents {
     @Column(name = "document_type")
     private String documentType;
 
-    @Column(name = "document")
+    @Column(name = "document", length = 1000)  // Or use @Lob for TEXT type
     private String document;
 
     public Documents(Pets pet, String documentType, String document) {

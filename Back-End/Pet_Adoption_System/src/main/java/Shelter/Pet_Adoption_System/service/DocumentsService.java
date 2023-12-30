@@ -36,7 +36,4 @@ public class DocumentsService {
     public Documents save(Documents document) {
         return documentsRepository.save(document);
     }
-    public void deleteImageUrlsByPetId(Integer petId) {
-        documentsRepository.deleteByPet_PetId(petId);
-    }
 }
