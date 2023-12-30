@@ -10,6 +10,7 @@ import StaffLogin from './pages/StaffLogin';
 import StaffSignup from './pages/StaffSignup';
 import HomePage from './pages/HomePage';
 import HomePageAfterAuth from './pages/HomePageAfterAuth';
+import Backup from './pages/Backup';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomePageAfterAuth />,
+  },
+  {
+    path: "/backup",
+    element: <Backup />,
   },
   {
     path: "*",
