@@ -19,14 +19,13 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/create-shelters" element={<ShelterForm />} />
-        <Route path="/AdminDashBoard" element={<AdminDashBoard />} />
-        <Route path="/CheckAdoptionApplications" element={<CheckAdoptionApplications />} />
-        <Route path='/PetDetailsModal' element={<PetDetailsModal />} />
-        <Route path='/UserAdoptionsTable' element={<UserAdoptionsTable />} />
-        <Route path='/StaffProfile' element={<StaffProfile />} />
-        <Route path='/AdopterProfile' element={<AdopterProfile />} />
-        <Route path='/HomePage' element={<HomePage />} />
+        
+        
+        
+        
+        
+        
+        
         
         {/* You can add more Route components here for other paths */}
       </Routes>

@@ -90,16 +90,22 @@ public class AuthenticationService {
         }
 
         Optional<Adopters> adopter = adoptersRepository.findByEmailAddress(request.getEmailAddress());
+
         Optional<Staff> staff = staffRepository.findByEmailAddress(request.getEmailAddress());
         if (adopter.isPresent() && !type) {
             String token = jwtService.generateToken(adopter.get());
             return AuthenticationResponse.builder()
                     .token(token)
+                    .userId(adopter.get().getUserId())
+                    .role("adopter")
+
                     .build();
         } else if (staff.isPresent() && type) {
             String token = jwtService.generateToken(staff.get());
             return AuthenticationResponse.builder()
                     .token(token)
+                    .userId(staff.get().getStaffId())
+                    .role(staff.get().getRole())
                     .build();
         } else {
             return AuthenticationResponse.builder()

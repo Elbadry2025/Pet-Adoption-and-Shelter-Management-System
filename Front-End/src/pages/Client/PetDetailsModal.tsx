@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { httpRequest } from '../../HttpProxy'; // Update the import path as necessary
+import {getUserId} from '../../CurrentSession'
 
 interface Pet {
   petId: number;
@@ -14,7 +15,7 @@ interface Pet {
   shelterId: number;
 }
 
-const currentUserId = 1; // Replace with actual user ID
+const currentUserId = getUserId(); // Replace with actual user ID
 
 const PetDetailsModal: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);

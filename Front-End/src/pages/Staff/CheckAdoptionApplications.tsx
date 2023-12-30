@@ -3,6 +3,7 @@ import StaffPetDetailsModal from './staffPetDetailsModal';
 import AdopterDetailsModal from './AdopterDetailsModal'; 
 import './CheckAdoptionApplications.css';
 import { httpRequest } from '../../HttpProxy';
+import {getUserId} from '../../CurrentSession'
 
 interface AdoptionRequest {
   adoptionId: number;
@@ -17,7 +18,7 @@ const CheckAdoptionApplications: React.FC = () => {
   const [updateMessage, setUpdateMessage] = useState('');
 
   useEffect(() => {
-    const Staff_MemberID = 1; // Hardcoded shelter ID
+    const Staff_MemberID = getUserId(); 
     const fetchData = async () => {
       try {
         const response = await httpRequest('get', `/api/adoptions/get_adoptions_by_staffId?staffId=${Staff_MemberID}`);
@@ -116,13 +117,22 @@ const CheckAdoptionApplications: React.FC = () => {
       padding: '20px',
       boxSizing: 'border-box' as 'border-box',
     };
+    const headerStyle: React.CSSProperties = {
+      background: '#6c757d',
+      color: '#fff',
+      padding: '16px',
+      fontSize: '1.5rem',
+      textAlign: 'center',
+      position:'absolute',
+      top:'70px',
+    };
 
   
   
 
     return (
       <div className="requests-staff" style={containerStyle}>
-        
+        <h1 style={headerStyle}>Adoption Requests</h1>
         <table style={tableStyle}>
           <thead>
             <tr>
