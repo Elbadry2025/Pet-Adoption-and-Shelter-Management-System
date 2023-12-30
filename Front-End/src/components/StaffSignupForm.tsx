@@ -61,6 +61,7 @@ const StaffSignupForm = () => {
       }
       else {
         goToAdoptions(response.data);
+        
       }
 
     } catch (err: any) {

@@ -16,6 +16,7 @@ public class PetsService {
     private StaffService staffService;
     @Autowired
     private PetsRepository petsRepository;
+    @Autowired
     private DocumentsService documentsService;
 
     public List<String> getImageUrlsForPet(Integer petId) {
@@ -24,8 +25,6 @@ public class PetsService {
                 .map(Documents::getDocument) // Assuming getDocument() returns the URL
                 .collect(Collectors.toList());
     }
-    @Autowired
-    private StaffService staffService;
 
 
     public List<Pets> findAllPets() {
@@ -38,9 +37,7 @@ public class PetsService {
         return petsRepository.findById(id).orElse(null);
     }
 
-    public List<Pets> findPetsByStaffId(int staffId) {
-        return petsRepository.findByShelterShelterId(staffService.findStaffById(staffId).getShelter().getShelterId());
-    }
+
 
     public List<Pets> findPetsBySpecies(String species) {
         return petsRepository.findBySpecies(species);

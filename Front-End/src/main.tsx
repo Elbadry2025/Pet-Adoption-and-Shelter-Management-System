@@ -1,5 +1,3 @@
-import PetManagement from './Pages/PetManagement'; 
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -19,16 +17,13 @@ import PetDetailsModal from './pages/Client/PetDetailsModal';
 import CheckAdoptionApplications from './pages/Staff/CheckAdoptionApplications';
 import AdminDashBoard from './pages/AdminDashBoard';
 import ShelterForm from './pages/ShelterForm';
+import PetManagement from './pages/PetManagement';
 
 const router = createBrowserRouter([
   
   {
     path: "/",
     element: <HomePage />,
-  },
-  {
-    path: "/PetManagement",
-    element: <PetManagement />,
   },
   {
     path: "/AdopterLogin",
@@ -46,10 +41,7 @@ const router = createBrowserRouter([
     path: "/StaffSignup",
     element: <StaffSignup />,
   },
-  {
-    path: "/home",
-    element: <HomePageAfterAuth />,
-  },
+ 
   {
     path: "/AdopterProfile",
     element: <AdopterProfile />,
@@ -77,6 +69,10 @@ const router = createBrowserRouter([
   {
     path:"/create-shelters",
     element: <ShelterForm/>,
+  },
+  {
+    path: "/PetManagement",
+    element: <PetManagement/>,
   },
  
   {

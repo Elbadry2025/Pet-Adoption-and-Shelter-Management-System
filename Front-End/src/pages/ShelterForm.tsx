@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPaw } from 'react-icons/fa';
 import { httpRequest } from '../HttpProxy';
+import ManagerSidebar from '../components/ManagerSidebar';
 
 
 type ShelterFormData =  {
@@ -109,6 +110,7 @@ const ShelterForm: React.FC = () => {
 
     return (
         <div style={styles.container}>
+            <ManagerSidebar />
             <div style={styles.formWrapper}>
                 <form onSubmit={handleSubmit}>
                     <div style={{ textAlign: 'center', marginBottom: '20px' }}>

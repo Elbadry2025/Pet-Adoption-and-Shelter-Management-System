@@ -2,6 +2,7 @@ import React, { useState ,useEffect } from 'react';
 import './StaffProfile.css'; 
 import { httpRequest } from '../../HttpProxy';
 import {getUserId} from '../../CurrentSession'
+import Sidebar from '../../components/SidebarStaff';
 
 
 
@@ -85,6 +86,7 @@ const StaffProfile: React.FC = () => {
 
   return (
     <div style={containerStyle} className="profile-container">
+      <Sidebar/>
       <div className="profile-header">
         <h1>Staff Profile</h1>
         {!isEditing && (

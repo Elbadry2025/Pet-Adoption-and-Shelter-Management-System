@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import "./PetManagement.css"
 import { httpRequest } from '../HttpProxy';
-import axios from "axios";
+import {getUserId} from '../CurrentSession'
 
 interface PetProfile {
   id: number;
@@ -38,7 +38,7 @@ const PetManagement = () => {
   const [detailsPet, setDetailsPet] = useState<PetProfile | null>(null);
   const [incompleteData, setIncompleteData] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [staffId, setStaffId] = useState(1);
+  const [staffId, setStaffId] = useState(getUserId());
 
   // ------------------------------------ Card Details ----------------------------------------//
   const handleCardClick = (pet: PetProfile) => {
@@ -101,11 +101,12 @@ const PetManagement = () => {
   };
 
   const handleEdit = (pet: PetProfile) => {
-    setShowForm(true);
     setIsEditMode(true);
+    setForm(pet); // Ensure 'pet' contains the correct data
+    setShowForm(true);
     setIncompleteData(false);
-    setForm(pet);
   };
+  
 
   const handleDelete = async (petId: number) => {
     try {
@@ -128,21 +129,25 @@ const PetManagement = () => {
       setIncompleteData(true);
       return;
     }
+    
+    const data = {
+      ...form, // form already contains id when in edit mode
+      staffId: staffId
+    };
+    
     try {
-      const method = isEditMode ? 'put' : 'post';
-      const url = isEditMode ? `/api/pets/update_pet?id=${form.id}` : '/api/pets/create_pet';
-      const data = {
-        ...form, // This is your PetsDTO data
-        staffId: staffId // Add this line
-      };
-      const response = await httpRequest('post', '/api/pets/create_pet', data);
+      const url = isEditMode ? `/api/pets/update_pet` : `/api/pets/create_pet`;
+      const response = await httpRequest(isEditMode ? 'put' : 'post', url, data);
       
       if(response.status === 200){
-        if (method === 'post') {
-          setPets([...pets, response.data]);
+        if (!isEditMode) {
+          setPets([...pets, form]); // Use response data instead of form
         } else {
-          // If an existing pet is updated, update it in the state
-          setPets(pets.map(pet => (pet.id === form.id ? response.data : pet)));
+          setPets(pets.map(pet => {
+            console.log('Updating pet:', pet, 'with form:', form);
+            return pet.id === form.id ? { ...pet, ...form } : pet;
+          }));
+          
         }
         // Reset form and close modal
         setShowForm(false);
@@ -162,10 +167,12 @@ const PetManagement = () => {
         });
       }
     } catch (error) {
-      alert('There was an error submitting the form:')
+      alert('There was an error submitting the form:');
       console.error('There was an error submitting the form:', error);
     }
   };
+
+  
   
   const isFormValid = () => {
     // Check if all fields are filled in
@@ -173,13 +180,15 @@ const PetManagement = () => {
       form.name.trim() !== '' &&
       form.species.trim() !== '' &&
       form.breed.trim() !== '' &&
-      form.age.trim() !== '' &&
+      form.age.toString().trim() !== '' && // Convert to string before trimming
       form.gender.trim() !== '' &&
       form.healthStatus.trim() !== '' &&
       form.behavior.trim() !== '' &&
-      form.description.trim() !== '' 
+      form.description.trim() !== '' &&
+      form.imageUrls.length !== 0 
     );
   };
+  
   
   const handleImageChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
     // Assert that event.currentTarget is an HTMLInputElement
@@ -223,13 +232,8 @@ const PetManagement = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-          const response = await axios(
-            `http://localhost:8081/api/pets/getAllPets`,
-            {
-                method: 'GET'
-            }
-          )
-          console.log('Response from server:', response.data);
+        // Include the staffId in the query string
+        const response = await httpRequest('get', `/api/pets/getAllPets?staffId=${staffId}`);
         if (response.status === 200) {
           setPets(response.data);
         } else {
@@ -239,7 +243,7 @@ const PetManagement = () => {
         console.error('Error fetching pets:', error);
       }
     };
-
+    
     fetchPets();
   }, []); 
 
@@ -357,7 +361,7 @@ const PetManagement = () => {
       <div className="pet-list mt-4">
         {pets.map(pet => (
           <div key={pet.id} className="pet-card" onClick={() => handleCardClick(pet)}>
-              {/*<img src={pet.imageUrls[0]} alt={`Image of ${pet.name}`} /> {/* Display only the first image */}
+              <img src={pet.imageUrls[0]} alt={`Image of ${pet.name}`} /> {/* Display only the first image */}
 
             <div className="pet-card-info">
               <div>

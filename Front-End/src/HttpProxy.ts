@@ -11,7 +11,7 @@ export const httpRequest = (method: string, url: string, data?: any) => {
 
   if (getToken() !== null && getToken() !== "null")
     headers = { Authorization: `Bearer ${getToken()}` };
-  console.log(headers);
+  
 
   return axios({
     method: method,
@@ -20,4 +20,3 @@ export const httpRequest = (method: string, url: string, data?: any) => {
     data: data,
   });
 };
-

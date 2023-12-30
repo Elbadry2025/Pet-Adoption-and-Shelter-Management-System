@@ -43,6 +43,12 @@ const StaffLoginForm = () => {
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('userId', response.data.userId);
       goToAdoptions(response.data);
+      if(response.data.role === "Staff Member"){
+        navigate('/StaffProfile')
+      }else if(response.data.role === "Manager"){
+        navigate('/AdminDashBoard')
+
+      }
     } catch (err: any) {
       alert("User not found.")
     }

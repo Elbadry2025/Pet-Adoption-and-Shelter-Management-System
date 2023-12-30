@@ -4,6 +4,7 @@ import AdopterDetailsModal from './AdopterDetailsModal';
 import './CheckAdoptionApplications.css';
 import { httpRequest } from '../../HttpProxy';
 import {getUserId} from '../../CurrentSession'
+import Sidebar from '../../components/SidebarStaff';
 
 interface AdoptionRequest {
   adoptionId: number;
@@ -132,6 +133,7 @@ const CheckAdoptionApplications: React.FC = () => {
 
     return (
       <div className="requests-staff" style={containerStyle}>
+        <Sidebar />
         <h1 style={headerStyle}>Adoption Requests</h1>
         <table style={tableStyle}>
           <thead>
